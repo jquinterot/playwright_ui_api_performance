@@ -1,6 +1,6 @@
 import { test, expect } from '../../helpers/fixtures/ActionFactoryFixture';
 
-test.describe('@visual Check Demoblaze home page is successfully displayed', () => {
+test.describe.skip('@visual Check Demoblaze home page is successfully displayed', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('');
   });

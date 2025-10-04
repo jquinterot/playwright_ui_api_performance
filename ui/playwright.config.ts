@@ -35,5 +35,15 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      name: 'mcp',
+      use: {
+        ...devices['Desktop Chrome'],
+        channel: 'chrome',
+        connectOptions: {
+          wsEndpoint: 'ws://localhost:63424/',
+        },
+      },
+    },
   ],
 });

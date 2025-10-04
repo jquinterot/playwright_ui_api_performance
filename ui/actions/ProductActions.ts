@@ -23,4 +23,9 @@ export class ProductActions {
   async addToCart(){
     await this.productPage.getAddToCartButton().click();
   }
+
+  async checkProductDescription(description: string) {
+    const descriptionLocator = this.productPage.getProductDescription();
+    await expect(descriptionLocator).toContainText(new RegExp(description));
+  }
 }

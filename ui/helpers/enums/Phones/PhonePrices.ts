@@ -1,0 +1,9 @@
+export enum PhonePrices {
+  GALAXY_S6_PRICE = '360',
+  NEXUS_6_PRICE = '650',
+  NOKIA_LUMIA_1520_PRICE = '820',
+  GALAXY_S7_PRICE = '800',
+  SONY_XPERIA_Z5_PRICE = '320',
+  HTC_ONE_M9_PRICE = '700',
+  IPHONE_6_PRICE = '790'
+}

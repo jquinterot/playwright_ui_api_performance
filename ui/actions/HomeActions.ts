@@ -27,4 +27,8 @@ export class HomeActions {
   async selectMenuOption(menuOption:string){
     await this.homePage.getNavbarMenuOption(menuOption).click();
   }
+
+  async checkProductPrice(price: string) {
+    await this.homePage.getProductPrice(price).isVisible();
+  }
 }

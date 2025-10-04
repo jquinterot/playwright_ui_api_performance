@@ -2,15 +2,14 @@ import { test } from '../../helpers/fixtures/ActionFactoryFixture';
 import { Phones } from '../../helpers/enums/Phones/Phones';
 import { PhonePrices } from '../../helpers/enums/Phones/PhonePrices';
 import { MenuOptions } from '../../helpers/enums/MenuOptions';
-import { Categories } from '../../helpers/enums/Categories';
 import { CartFlows } from '../../helpers/flows/CartFlows';
 
-test.describe('@regression @Order @Phones Add Galaxy S6 to cart', () => {
+test.describe('@regression @Order @Phones Add Nokia Lumia 1520 to cart', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('');
   });
 
-  test('Check that a Samsung cellphone can be added', async ({
+  test('Check that a Nokia Lumia 1520 can be added', async ({
     actionFactory,
   }) => {
     const homeActions = actionFactory.createHomeActions();
@@ -18,8 +17,8 @@ test.describe('@regression @Order @Phones Add Galaxy S6 to cart', () => {
     await test.step('Given product is added to cart', async () => {
       await CartFlows.addProductToCart(
         actionFactory,
-        Phones.GALAXY_S6,
-        PhonePrices.GALAXY_S6_PRICE,
+        Phones.NOKIA_LUMIA_1520,
+        PhonePrices.NOKIA_LUMIA_1520_PRICE,
       );
     });
 
@@ -29,12 +28,12 @@ test.describe('@regression @Order @Phones Add Galaxy S6 to cart', () => {
 
     const cartActions = actionFactory.createCartActions();
 
-    await test.step('Then the Samsung Galaxy S6 is added to cart', async () => {
-      await cartActions.checkProductIsDisplayed(Phones.GALAXY_S6);
+    await test.step('Then the Nokia Lumia 1520 is added to cart', async () => {
+      await cartActions.checkProductIsDisplayed(Phones.NOKIA_LUMIA_1520);
     });
 
-    await test.step('And the Samsung Galaxy S6 product is deleted', async () => {
-      await cartActions.deleteProductFromCard(Phones.GALAXY_S6);
+    await test.step('And the Nokia Lumia 1520 product is deleted', async () => {
+      await cartActions.deleteProductFromCard(Phones.NOKIA_LUMIA_1520);
     });
   });
 });

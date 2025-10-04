@@ -1,12 +1,13 @@
 import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { Phones, PhonePrices } from '../../helpers/enums/Products';
+import { Phones } from '../../helpers/enums/Phones/Phones';
+import { PhonePrices } from '../../helpers/enums/Phones/PhonePrices';
 import { Categories } from '../../helpers/enums/Categories';
 import { MenuOptions } from '../../helpers/enums/MenuOptions';
 import { johnCardInfo } from '../../helpers/objects/CardInfo';
 import { johnInfo } from '../../helpers/objects/CustomerInfo';
 import { CartFlows } from '../../helpers/flows/CartFlows';
 
-test.describe('@regression Check place order', () => {
+test.describe('@regression @Order Check place order', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('');
   });
