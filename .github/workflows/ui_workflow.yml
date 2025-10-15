@@ -48,7 +48,7 @@ jobs:
 
   ui-regression-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.52.0
+    container: mcr.microsoft.com/playwright:v1.56.0
     defaults:
       run:
         working-directory: ui

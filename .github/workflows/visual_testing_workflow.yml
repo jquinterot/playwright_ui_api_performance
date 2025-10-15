@@ -10,7 +10,7 @@ jobs:
   # Job to Upload Initial Baseline Images (Manual)
   upload_baseline_images:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.52.0  # Pre-installed browsers
+    container: mcr.microsoft.com/playwright:v1.56.0  # Pre-installed browsers
     defaults:
       run:
         working-directory: ui
