@@ -8,7 +8,7 @@ on:
 jobs:
   ui-acceptance-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.52.0  # Official image with pre-installed browsers
+    container: mcr.microsoft.com/playwright:v1.56.0  # Official image with pre-installed browsers
     defaults:
       run:
         working-directory: ui
@@ -28,7 +28,7 @@ jobs:
 
   ui-accessibility-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.52.0
+    container: mcr.microsoft.com/playwright:v1.56.0
     defaults:
       run:
         working-directory: ui
