@@ -1,8 +1,8 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { Phones } from '../../helpers/enums/Phones/Phones';
-import { PhonePrices } from '../../helpers/enums/Phones/PhonePrices';
-import { MenuOptions } from '../../helpers/enums/MenuOptions';
-import { CartFlows } from '../../helpers/flows/CartFlows';
+import { test } from '../../../helpers/fixtures/ActionFactoryFixture';
+import { Phones } from '../../../helpers/enums/Phones/Phones';
+import { PhonePrices } from '../../../helpers/enums/Phones/PhonePrices';
+import { MenuOptions } from '../../../helpers/enums/MenuOptions';
+import { CartFlows } from '../../../helpers/flows/CartFlows';
 
 test.describe('@regression @Order @Phones Add Nokia Lumia 1520 to cart', () => {
   test.beforeEach(async ({ page }) => {
@@ -37,3 +37,8 @@ test.describe('@regression @Order @Phones Add Nokia Lumia 1520 to cart', () => {
     });
   });
 });
+
+// TODO (maintenance):
+// - Use a product data object (name, price) for `Phones.NOKIA_LUMIA_1520` to keep the API consistent with other flows.
+// - In `deleteProductFromCard`, ensure the selector is robust (trim, case-insensitive) to avoid flakiness.
+// - Consider asserting cart counter changes or checking a success toast after add-to-cart to detect problems earlier than checking the cart page.

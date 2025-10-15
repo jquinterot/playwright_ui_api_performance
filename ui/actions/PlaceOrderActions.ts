@@ -9,6 +9,7 @@ export class PlaceOrderActions {
   }
 
   async fillName(name:string) {
+    await this.placeOrderPage.getNameInput().isVisible();
     await this.placeOrderPage.getNameInput().fill(name);
   }
 

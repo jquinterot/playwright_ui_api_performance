@@ -1,8 +1,8 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { Monitors } from '../../helpers/enums/Monitors/Monitors';
-import { MonitorPrices } from '../../helpers/enums/Monitors/MonitorPrices';
-import { MenuOptions } from '../../helpers/enums/MenuOptions';
-import { CartFlows } from '../../helpers/flows/CartFlows';
+import { test } from '../../../helpers/fixtures/ActionFactoryFixture';
+import { Monitors } from '../../../helpers/enums/Monitors/Monitors';
+import { MonitorPrices } from '../../../helpers/enums/Monitors/MonitorPrices';
+import { MenuOptions } from '../../../helpers/enums/MenuOptions';
+import { CartFlows } from '../../../helpers/flows/CartFlows';
 
 test.describe('@regression @Order @Monitor Add ASUS Full HD to cart', () => {
   test.beforeEach(async ({ page }) => {
@@ -37,3 +37,8 @@ test.describe('@regression @Order @Monitor Add ASUS Full HD to cart', () => {
     });
   });
 });
+
+// TODO (stability/refactor):
+// - Use case-insensitive role locators: when checking cart items prefer `getByRole('cell', { name: /ASUS Full HD/i })` so small label changes don't break tests.
+// - Assert product price with a tolerant matcher (regex or `toContainText`) because UI adds suffixes like "*includes tax".
+// - Consider extracting the add->gotoCart->verify pattern into a single `CartFlows.addAndVerifyMonitor(product)` helper to reduce repetition.

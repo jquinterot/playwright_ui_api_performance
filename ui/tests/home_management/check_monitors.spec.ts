@@ -2,7 +2,6 @@ import { test } from '../../helpers/fixtures/ActionFactoryFixture';
 import { Categories } from '../../helpers/enums/Categories';
 import { Monitors } from '../../helpers/enums/Monitors/Monitors';
 import { MonitorPrices } from '../../helpers/enums/Monitors/MonitorPrices';
-import { expect } from '@playwright/test';
 
 test.describe('@regression @Order @Monitor Check Monitors category', () => {
   test.beforeEach(async ({ page }) => {
@@ -11,7 +10,6 @@ test.describe('@regression @Order @Monitor Check Monitors category', () => {
 
   test('Validate Monitors category products', async ({ actionFactory }) => {
     const homeActions = actionFactory.createHomeActions();
-    const productActions = actionFactory.createProductActions();
 
     await test.step('When user navigates to Monitors category', async () => {
       await homeActions.selectCategory(Categories.MONITORS);

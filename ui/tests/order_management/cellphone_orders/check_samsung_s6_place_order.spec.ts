@@ -1,11 +1,10 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { Phones } from '../../helpers/enums/Phones/Phones';
-import { PhonePrices } from '../../helpers/enums/Phones/PhonePrices';
-import { Categories } from '../../helpers/enums/Categories';
-import { MenuOptions } from '../../helpers/enums/MenuOptions';
-import { johnCardInfo } from '../../helpers/objects/CardInfo';
-import { johnInfo } from '../../helpers/objects/CustomerInfo';
-import { CartFlows } from '../../helpers/flows/CartFlows';
+import { test } from '../../../helpers/fixtures/ActionFactoryFixture';
+import { Phones } from '../../../helpers/enums/Phones/Phones';
+import { PhonePrices } from '../../../helpers/enums/Phones/PhonePrices';
+import { MenuOptions } from '../../../helpers/enums/MenuOptions';
+import { johnCardInfo } from '../../../helpers/objects/CardInfo';
+import { johnInfo } from '../../../helpers/objects/CustomerInfo';
+import { CartFlows } from '../../../helpers/flows/CartFlows';
 
 test.describe('@regression @Order Check place order', () => {
   test.beforeEach(async ({ page }) => {
@@ -62,4 +61,10 @@ test.describe('@regression @Order Check place order', () => {
       await placeOrderActions.isThankYouMessageIsDisplayed();
     });
   });
+
+  // TODO (test design):
+  // - This test covers add-to-cart, delete, place order and confirmation. Consider splitting into two focused tests: (1) add/delete flow, (2) place-order flow — easier to debug on failures.
+  // - Validate the order confirmation contains a numeric order id or expected success text. Attach the confirmation payload to test.info() for later debugging.
+  // - Move card/customer fixtures into test fixtures where possible so test parameters are clearer and fewer hard-coded values remain in the test body.
+  // - Consider adding assertions that delete actually removes the product from the DOM (e.g., `expect(locator).toHaveCount(0)`).
 });

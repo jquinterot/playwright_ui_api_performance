@@ -18,13 +18,13 @@
     "test:monitors": "cd ui && npx playwright test tests/order_management/check_monitors.spec.ts --project=chromium",
     "test:phones": "cd ui && npx playwright test tests/order_management/check_phones.spec.ts --project=chromium",
     "ui:monitors": "cd ui && npx playwright test --grep @Monitor --project=chromium",
-    "ui:debug": "cd ui && npx playwright test --debug"
+    "ui:debug": "cd ui && npx playwright test --grep @acceptance --project=chromium --debug"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@playwright/test": "^1.55.0",
+    "@playwright/test": "^1.56.0",
     "@types/node": "^20.5.9",
     "husky": "^8.0.3",
     "prettier": "^3.0.3"
