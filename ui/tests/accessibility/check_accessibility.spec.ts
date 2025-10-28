@@ -8,7 +8,7 @@ test.skip('@accessibility Check Demoblaze Home Page has correct accessibility', 
     await page.goto('');
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
-    //just to make it pass it needed
+    //just to make if pass it needed
     expect.soft(accessibilityScanResults.violations).not.toEqual([]);
   });
 });
