@@ -2,25 +2,28 @@ import { ProductPage } from '../pages/ProductPage';
 import { Page, expect } from '@playwright/test';
 
 export class ProductActions {
-  private productPage: ProductPage;
-
-  constructor(page: Page) {
-    this.productPage = new ProductPage(page);
-  }
+  constructor(
+    private readonly page: Page,
+    private readonly productPage: ProductPage,
+  ) {}
 
   async checkHomePageTitle(page: Page) {
     await expect(page).toHaveTitle(/STORE/);
   }
 
-  async checkAddedProduct(product:string) {
-    await expect(this.productPage.getProductLabel(product)).toHaveText(`${product}`);
+  async checkAddedProduct(product: string) {
+    await expect(this.productPage.getProductLabel(product)).toHaveText(
+      `${product}`,
+    );
   }
 
-  async checkProductPrice(price:string) {
-    await expect(this.productPage.getPriceLabel(`$${price}`)).toHaveText(`$${price} *includes tax`);
+  async checkProductPrice(price: string) {
+    await expect(this.productPage.getPriceLabel(`$${price}`)).toHaveText(
+      `$${price} *includes tax`,
+    );
   }
 
-  async addToCart(){
+  async addToCart() {
     await this.productPage.getAddToCartButton().click();
   }
 

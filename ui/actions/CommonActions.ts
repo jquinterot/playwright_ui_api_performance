@@ -1,10 +1,9 @@
 import { CommonPage } from '../pages/CommonPage';
-import { Page, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class CommonActions {
-  private contactPage: CommonPage;
-
-  constructor(page: Page) {
-    this.contactPage = new CommonPage(page);
-  }
+  constructor(
+    private readonly page: Page,
+    private readonly commonPage: CommonPage,
+  ) {}
 }

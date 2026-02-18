@@ -2,17 +2,16 @@ import { AboutUsPage } from '../pages/AboutUsPage';
 import { Page, expect } from '@playwright/test';
 
 export class AboutUsActions {
-  private aboutUsPage: AboutUsPage;
+  constructor(
+    private readonly page: Page,
+    private readonly aboutUsPage: AboutUsPage,
+  ) {}
 
-  constructor(page: Page) {
-    this.aboutUsPage = new AboutUsPage(page);
-  }
-
-  async isAboutUsTitleDisplayed(){
+  async isAboutUsTitleDisplayed() {
     await expect(this.aboutUsPage.getAboutUsTitle()).toBeVisible();
   }
 
-  async closeModal(){
+  async closeModal() {
     await this.aboutUsPage.getCloseButton().click();
   }
 }

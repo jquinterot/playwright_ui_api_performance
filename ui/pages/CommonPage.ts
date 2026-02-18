@@ -1,12 +1,3 @@
-import { Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class CommonPage {
-  private readonly page: Page;
-
-  constructor(page: Page) {
-    this.page = page;
-  }
-
-  //method here getAddedProductTitle = (product:string) =>  this.page.getByRole('cell', {name: `${product}`});
-
-}
+export class CommonPage extends BasePage {}
