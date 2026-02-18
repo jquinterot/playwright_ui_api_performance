@@ -1,4 +1,4 @@
-import { CommonPage } from '../pages/CommonPage';
+import { CommonPage } from '@pages/CommonPage';
 import { Page } from '@playwright/test';
 
 export class CommonActions {

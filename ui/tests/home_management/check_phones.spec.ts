@@ -1,9 +1,9 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { Categories } from '../../helpers/enums/Categories';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { Categories } from '@helpers/enums/Categories';
 import { expect } from '@playwright/test';
-import { CartFlows } from '../../helpers/flows/CartFlows';
-import { Phones } from '../../helpers/enums/Phones/Phones';
-import { PhonePrices } from '../../helpers/enums/Phones/PhonePrices';
+import { CartFlows } from '@helpers/flows/CartFlows';
+import { Phones } from '@helpers/enums/Phones/Phones';
+import { PhonePrices } from '@helpers/enums/Phones/PhonePrices';
 
 test.describe('@regression @Order @Phones Check Phones category', () => {
   test.beforeEach(async ({ page }) => {
@@ -34,7 +34,7 @@ cannot be expanded. As far as the cameras are concerned, the Apple
 iPhone 6 packs a 8-megapixel primary camera on the rear and a 
 1.2-megapixel front shooter for selfies.`;
 
-         await homeActions.checkProductPrice(productPrice);
+      await homeActions.checkProductPrice(productPrice);
     });
   });
 });

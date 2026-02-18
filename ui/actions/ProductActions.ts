@@ -1,4 +1,4 @@
-import { ProductPage } from '../pages/ProductPage';
+import { ProductPage } from '@pages/ProductPage';
 import { Page, expect } from '@playwright/test';
 
 export class ProductActions {

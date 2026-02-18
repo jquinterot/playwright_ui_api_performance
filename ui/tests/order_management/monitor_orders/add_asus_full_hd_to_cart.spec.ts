@@ -1,8 +1,8 @@
-import { test } from '../../../helpers/fixtures/ActionFactoryFixture';
-import { Monitors } from '../../../helpers/enums/Monitors/Monitors';
-import { MonitorPrices } from '../../../helpers/enums/Monitors/MonitorPrices';
-import { MenuOptions } from '../../../helpers/enums/MenuOptions';
-import { CartFlows } from '../../../helpers/flows/CartFlows';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { Monitors } from '@helpers/enums/Monitors/Monitors';
+import { MonitorPrices } from '@helpers/enums/Monitors/MonitorPrices';
+import { MenuOptions } from '@helpers/enums/MenuOptions';
+import { CartFlows } from '@helpers/flows/CartFlows';
 
 test.describe('@regression @Order @Monitor Add ASUS Full HD to cart', () => {
   test.beforeEach(async ({ page }) => {

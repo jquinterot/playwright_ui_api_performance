@@ -7,14 +7,14 @@ import { ContactActions } from './ContactActions';
 import { SingUpActions } from './SignUpActions';
 import { PlaceOrderActions } from './PlaceOrderActions';
 import { CommonActions } from './CommonActions';
-import { HomePage } from '../pages/HomePage';
-import { ProductPage } from '../pages/ProductPage';
-import { CartPage } from '../pages/CartPage';
-import { AboutUsPage } from '../pages/AboutUsPage';
-import { ContactPage } from '../pages/ContactPage';
-import { SignUpPage } from '../pages/SignUpPage';
-import { PlaceOrderPage } from '../pages/PlaceOrderPage';
-import { CommonPage } from '../pages/CommonPage';
+import { HomePage } from '@pages/HomePage';
+import { ProductPage } from '@pages/ProductPage';
+import { CartPage } from '@pages/CartPage';
+import { AboutUsPage } from '@pages/AboutUsPage';
+import { ContactPage } from '@pages/ContactPage';
+import { SignUpPage } from '@pages/SignUpPage';
+import { PlaceOrderPage } from '@pages/PlaceOrderPage';
+import { CommonPage } from '@pages/CommonPage';
 
 export class ActionFactory {
   private homePage: HomePage;

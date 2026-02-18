@@ -1,14 +1,13 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { MenuOptions } from '../../helpers/enums/MenuOptions';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { MenuOptions } from '@helpers/enums/MenuOptions';
 
 test.describe('@regression Check contact is working properly', () => {
-
   test.beforeEach(async ({ page }) => {
     await page.goto('');
   });
 
   test('Check a message can be sent via contact form', async ({
-    actionFactory
+    actionFactory,
   }) => {
     const homeActions = actionFactory.createHomeActions();
 

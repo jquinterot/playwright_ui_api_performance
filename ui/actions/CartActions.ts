@@ -1,4 +1,4 @@
-import { CartPage } from '../pages/CartPage';
+import { CartPage } from '@pages/CartPage';
 import { Page, expect } from '@playwright/test';
 
 export class CartActions {

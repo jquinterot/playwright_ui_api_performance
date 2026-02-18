@@ -1,4 +1,4 @@
-import { AboutUsPage } from '../pages/AboutUsPage';
+import { AboutUsPage } from '@pages/AboutUsPage';
 import { Page, expect } from '@playwright/test';
 
 export class AboutUsActions {

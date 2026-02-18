@@ -1,4 +1,4 @@
-import { PlaceOrderPage } from '../pages/PlaceOrderPage';
+import { PlaceOrderPage } from '@pages/PlaceOrderPage';
 import { Page, expect } from '@playwright/test';
 
 export class PlaceOrderActions {

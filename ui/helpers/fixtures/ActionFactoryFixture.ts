@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import { ActionFactory } from '../../actions/ActionsFactory';
+import { ActionFactory } from '@actions/ActionsFactory';
 
 // Declare the types of your fixtures.
 type ActionFactoryFixture = {

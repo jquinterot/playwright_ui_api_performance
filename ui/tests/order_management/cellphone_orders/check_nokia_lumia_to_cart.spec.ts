@@ -1,8 +1,8 @@
-import { test } from '../../../helpers/fixtures/ActionFactoryFixture';
-import { Phones } from '../../../helpers/enums/Phones/Phones';
-import { PhonePrices } from '../../../helpers/enums/Phones/PhonePrices';
-import { MenuOptions } from '../../../helpers/enums/MenuOptions';
-import { CartFlows } from '../../../helpers/flows/CartFlows';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { Phones } from '@helpers/enums/Phones/Phones';
+import { PhonePrices } from '@helpers/enums/Phones/PhonePrices';
+import { MenuOptions } from '@helpers/enums/MenuOptions';
+import { CartFlows } from '@helpers/flows/CartFlows';
 
 test.describe('@regression @Order @Phones Add Nokia Lumia 1520 to cart', () => {
   test.beforeEach(async ({ page }) => {

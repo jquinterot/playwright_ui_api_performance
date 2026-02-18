@@ -7,6 +7,10 @@ export class BasePage {
     this.page = page;
   }
 
+  getPage(): Page {
+    return this.page;
+  }
+
   get navbarTitle(): Locator {
     return this.page.getByRole('link', { name: 'PRODUCT STORE' });
   }

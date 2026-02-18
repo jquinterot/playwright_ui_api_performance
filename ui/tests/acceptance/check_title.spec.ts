@@ -1,4 +1,4 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
 
 test.describe('@acceptance Check Poke is correctly displayed', () => {
   test.beforeEach(async ({ page }) => {

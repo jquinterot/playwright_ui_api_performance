@@ -1,10 +1,10 @@
-import { test } from '../../../helpers/fixtures/ActionFactoryFixture';
-import { Phones } from '../../../helpers/enums/Phones/Phones';
-import { PhonePrices } from '../../../helpers/enums/Phones/PhonePrices';
-import { MenuOptions } from '../../../helpers/enums/MenuOptions';
-import { johnCardInfo } from '../../../helpers/objects/CardInfo';
-import { johnInfo } from '../../../helpers/objects/CustomerInfo';
-import { CartFlows } from '../../../helpers/flows/CartFlows';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { Phones } from '@helpers/enums/Phones/Phones';
+import { PhonePrices } from '@helpers/enums/Phones/PhonePrices';
+import { MenuOptions } from '@helpers/enums/MenuOptions';
+import { johnCardInfo } from '@helpers/objects/CardInfo';
+import { johnInfo } from '@helpers/objects/CustomerInfo';
+import { CartFlows } from '@helpers/flows/CartFlows';
 
 test.describe('@regression @Order Check place order', () => {
   test.beforeEach(async ({ page }) => {

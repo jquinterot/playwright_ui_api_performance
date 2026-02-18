@@ -1,15 +1,12 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { MenuOptions } from '../../helpers/enums/MenuOptions';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { MenuOptions } from '@helpers/enums/MenuOptions';
 
 test.describe('@regression Check About us', () => {
-
   test.beforeEach(async ({ page }) => {
     await page.goto('');
   });
 
-  test('Check About us is correctly displayed', async ({
-    actionFactory
-  }) => {
+  test('Check About us is correctly displayed', async ({ actionFactory }) => {
     const homeActions = actionFactory.createHomeActions();
     const AboutUsActions = actionFactory.createAboutUsActions();
 

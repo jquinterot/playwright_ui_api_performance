@@ -1,7 +1,7 @@
-import { test } from '../../helpers/fixtures/ActionFactoryFixture';
-import { Categories } from '../../helpers/enums/Categories';
-import { Monitors } from '../../helpers/enums/Monitors/Monitors';
-import { MonitorPrices } from '../../helpers/enums/Monitors/MonitorPrices';
+import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { Categories } from '@helpers/enums/Categories';
+import { Monitors } from '@helpers/enums/Monitors/Monitors';
+import { MonitorPrices } from '@helpers/enums/Monitors/MonitorPrices';
 
 test.describe('@regression @Order @Monitor Check Monitors category', () => {
   test.beforeEach(async ({ page }) => {

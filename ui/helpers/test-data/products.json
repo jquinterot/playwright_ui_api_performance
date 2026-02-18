@@ -1,0 +1,55 @@
+{
+  "phones": [
+    {
+      "id": "iphone_6_32gb",
+      "name": "Iphone 6 32gb",
+      "price": 790,
+      "category": "Phones",
+      "description": "The iPhone 6 is Apple's flagship phone"
+    },
+    {
+      "id": "nexus_6",
+      "name": "Nexus 6",
+      "price": 650,
+      "category": "Phones",
+      "description": "Nexus 6 from Google"
+    },
+    {
+      "id": "nokia_lumia_1520",
+      "name": "Nokia Lumia 1520",
+      "price": 920,
+      "category": "Phones",
+      "description": "Windows phone from Nokia"
+    },
+    {
+      "id": "samsung_galaxy_s6",
+      "name": "Samsung Galaxy S6",
+      "price": 800,
+      "category": "Phones",
+      "description": "Samsung flagship phone"
+    }
+  ],
+  "monitors": [
+    {
+      "id": "asus_full_hd",
+      "name": "ASUS Full HD",
+      "price": 230,
+      "category": "Monitors",
+      "description": "24 inch Full HD monitor"
+    },
+    {
+      "id": "apple_monitor_24",
+      "name": "Apple monitor 24",
+      "price": 400,
+      "category": "Monitors",
+      "description": "Apple LED Cinema Display"
+    },
+    {
+      "id": "dell_ultrasharp_29",
+      "name": "Dell UltraSharp 29",
+      "price": 250,
+      "category": "Monitors",
+      "description": "29 inch ultrawide monitor"
+    }
+  ]
+}
