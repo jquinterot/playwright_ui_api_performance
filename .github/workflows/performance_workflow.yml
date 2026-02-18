@@ -1,12 +1,29 @@
-name: Load Test
-on: [push]
+name: Performance Tests
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'performance/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'performance/**'
+
 jobs:
   k6_performance_test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        test:
+          - performance/api_load_test.ts
+          - performance/endpoint_response_time_test.ts
+          - performance/threshold_test.ts
+          - performance/user_journey_test.ts
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Run k6 test
-      uses: k6io/action@v0.1
-      with:
-        filename: performance/load_test.ts
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run k6 test
+        uses: k6io/action@v0.1
+        with:
+          filename: ${{ matrix.test }}
