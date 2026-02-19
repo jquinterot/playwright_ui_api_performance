@@ -1,0 +1,72 @@
+name: API Tests
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'api/**'
+      - '.github/workflows/api_workflow.yml'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'api/**'
+
+jobs:
+  api-acceptance-tests:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.58.2
+    defaults:
+      run:
+        working-directory: api
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run API acceptance tests
+        run: npx playwright test --grep @acceptance --project=chromium
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-results-acceptance
+          path: api/test-results/
+          retention-days: 7
+
+  api-integration-tests:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.58.2
+    defaults:
+      run:
+        working-directory: api
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run API integration tests
+        run: npx playwright test tests/integration --project=chromium
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-results-integration
+          path: api/test-results/
+          retention-days: 7
+
+  api-negative-tests:
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/playwright:v1.58.2
+    defaults:
+      run:
+        working-directory: api
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run API negative tests
+        run: npx playwright test --grep @negative --project=chromium
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-results-negative
+          path: api/test-results/
+          retention-days: 7
