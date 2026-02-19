@@ -9,6 +9,7 @@ export interface Product {
 export interface ProductsData {
   phones: Product[];
   monitors: Product[];
+  laptops: Product[];
 }
 
 export interface CustomerData {
@@ -18,6 +19,11 @@ export interface CustomerData {
   card: string;
   month: string;
   year: string;
+}
+
+export interface UserCredentials {
+  username: string;
+  password: string;
 }
 
 export const customers: CustomerData[] = [

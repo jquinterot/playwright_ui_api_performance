@@ -58,5 +58,28 @@
       "category": "Monitors",
       "description": "Apple LED Cinema Display"
     }
+  ],
+  "laptops": [
+    {
+      "id": "sony_vaio_i5",
+      "name": "Sony vaio i5",
+      "price": 700,
+      "category": "Laptops",
+      "description": "Sony VAIO with Intel i5"
+    },
+    {
+      "id": "dell_i7_8gb",
+      "name": "Dell i7 8gb",
+      "price": 1240,
+      "category": "Laptops",
+      "description": "Dell with Intel i7 and 8GB RAM"
+    },
+    {
+      "id": "macbook_air",
+      "name": "MacBook Air",
+      "price": 700,
+      "category": "Laptops",
+      "description": "Apple MacBook Air"
+    }
   ]
 }

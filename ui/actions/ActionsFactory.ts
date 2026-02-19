@@ -7,6 +7,7 @@ import { ContactActions } from './ContactActions';
 import { SingUpActions } from './SignUpActions';
 import { PlaceOrderActions } from './PlaceOrderActions';
 import { CommonActions } from './CommonActions';
+import { LoginActions } from './LoginActions';
 import { HomePage } from '@pages/HomePage';
 import { ProductPage } from '@pages/ProductPage';
 import { CartPage } from '@pages/CartPage';
@@ -15,6 +16,7 @@ import { ContactPage } from '@pages/ContactPage';
 import { SignUpPage } from '@pages/SignUpPage';
 import { PlaceOrderPage } from '@pages/PlaceOrderPage';
 import { CommonPage } from '@pages/CommonPage';
+import { LoginPage } from '@pages/LoginPage';
 
 export class ActionFactory {
   private homePage: HomePage;
@@ -25,6 +27,7 @@ export class ActionFactory {
   private signUpPage: SignUpPage;
   private placeOrderPage: PlaceOrderPage;
   private commonPage: CommonPage;
+  private loginPage: LoginPage;
 
   constructor(private page: Page) {
     this.homePage = new HomePage(page);
@@ -35,6 +38,7 @@ export class ActionFactory {
     this.signUpPage = new SignUpPage(page);
     this.placeOrderPage = new PlaceOrderPage(page);
     this.commonPage = new CommonPage(page);
+    this.loginPage = new LoginPage(page);
   }
 
   createHomeActions(): HomeActions {
@@ -67,5 +71,9 @@ export class ActionFactory {
 
   createCommonActions(): CommonActions {
     return new CommonActions(this.page, this.commonPage);
+  }
+
+  createLoginActions(): LoginActions {
+    return new LoginActions(this.page, this.loginPage);
   }
 }

@@ -1,12 +1,14 @@
 import { test } from '@helpers/fixtures/ActionFactoryFixture';
 import { MenuOptions } from '@helpers/enums/MenuOptions';
 
-test.describe('@regression @positive Check login', () => {
+test.describe('@regression @negative Check login with invalid credentials', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('');
   });
 
-  test('Check login with valid credentials', async ({ actionFactory }) => {
+  test('Check login fails with invalid credentials', async ({
+    actionFactory,
+  }) => {
     const homeActions = actionFactory.createHomeActions();
     const loginActions = actionFactory.createLoginActions();
 
@@ -14,9 +16,9 @@ test.describe('@regression @positive Check login', () => {
       await homeActions.selectMenuOption(MenuOptions.LOG_IN);
     });
 
-    await test.step('And fills login credentials', async () => {
-      await loginActions.fillUsername('testuser');
-      await loginActions.fillPassword('testpassword');
+    await test.step('And enters invalid credentials', async () => {
+      await loginActions.fillUsername('invaliduser');
+      await loginActions.fillPassword('wrongpassword');
     });
 
     await test.step('And clicks login button', async () => {

@@ -22,8 +22,21 @@ export class TestDataLoader {
     return this.loadProducts().monitors;
   }
 
+  static getLaptops(): Product[] {
+    return this.loadProducts().laptops;
+  }
+
   static getProductsByCategory(category: string): Product[] {
     const data = this.loadProducts();
-    return category === 'Phones' ? data.phones : data.monitors;
+    switch (category) {
+      case 'Phones':
+        return data.phones;
+      case 'Monitors':
+        return data.monitors;
+      case 'Laptops':
+        return data.laptops;
+      default:
+        return [];
+    }
   }
 }
