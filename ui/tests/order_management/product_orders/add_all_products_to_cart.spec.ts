@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { ActionFactory } from '@actions/ActionsFactory';
-import { TestDataLoader } from '@helpers/test-data/loader';
+import { TestDataLoader } from '@helpers/test-data/TestDataLoader';
 
 test.describe('@regression Add All Products To Cart', () => {
   let actionFactory: ActionFactory;

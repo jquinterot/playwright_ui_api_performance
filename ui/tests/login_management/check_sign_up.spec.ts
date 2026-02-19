@@ -15,12 +15,12 @@ test.describe('@regression Check Sign up', () => {
       await homeActions.selectMenuOption(MenuOptions.SIGN_UP);
     });
 
-    const signupActions = actionFactory.createSingUpActions();
+    const signupActions = actionFactory.createSignUpActions();
 
     await test.step('And fills Sign up modal', async () => {
       await signupActions.fillUsername(johnInfo.username);
-      await signupActions.fillUserPassword(johnInfo.password);
-      await signupActions.selectSignup();
+      await signupActions.fillPassword(johnInfo.password);
+      await signupActions.clickSignUpButton();
     });
 
     await test.step('Then dialog message should be correct', async () => {

@@ -4,7 +4,7 @@ import { ProductActions } from './ProductActions';
 import { CartActions } from './CartActions';
 import { AboutUsActions } from './AboutUsActions';
 import { ContactActions } from './ContactActions';
-import { SingUpActions } from './SignUpActions';
+import { SignUpActions } from './SignUpActions';
 import { PlaceOrderActions } from './PlaceOrderActions';
 import { CommonActions } from './CommonActions';
 import { LoginActions } from './LoginActions';
@@ -61,8 +61,8 @@ export class ActionFactory {
     return new ContactActions(this.page, this.contactPage);
   }
 
-  createSingUpActions(): SingUpActions {
-    return new SingUpActions(this.page, this.signUpPage);
+  createSignUpActions(): SignUpActions {
+    return new SignUpActions(this.page, this.signUpPage);
   }
 
   createPlaceOrderActions(): PlaceOrderActions {

@@ -1,7 +1,7 @@
 import { SignUpPage } from '@pages/SignUpPage';
 import { Page, expect } from '@playwright/test';
 
-export class SingUpActions {
+export class SignUpActions {
   constructor(
     private readonly page: Page,
     private readonly signUpPage: SignUpPage,
@@ -11,11 +11,11 @@ export class SingUpActions {
     await this.signUpPage.getUserNameInput().fill(username);
   }
 
-  async fillUserPassword(password: string) {
+  async fillPassword(password: string) {
     await this.signUpPage.getUserPasswordInput().fill(password);
   }
 
-  async selectSignup() {
+  async clickSignUpButton() {
     await this.signUpPage.getSignupButton().click();
   }
 

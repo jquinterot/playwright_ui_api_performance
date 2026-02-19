@@ -1,5 +1,5 @@
 export enum Categories {
-    PHONES = 'Phones',
-    LAPTOS = 'Laptops',
-    MONITORS = 'Monitors',
-  }
+  PHONES = 'Phones',
+  LAPTOPS = 'Laptops',
+  MONITORS = 'Monitors',
+}

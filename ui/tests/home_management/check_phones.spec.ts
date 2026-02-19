@@ -10,7 +10,7 @@ test.describe('@regression @Order @Phones Check Phones category', () => {
     await page.goto('');
   });
 
-  test('Validate iPhone 6 32GB details', async ({ actionFactory }) => {
+  test('Add iPhone 6 to cart and verify price', async ({ actionFactory }) => {
     const homeActions = actionFactory.createHomeActions();
     const productActions = actionFactory.createProductActions();
 
@@ -26,15 +26,8 @@ test.describe('@regression @Order @Phones Check Phones category', () => {
       );
     });
 
-    await test.step('Then validate iPhone 6 32GB details', async () => {
-      const productName = Phones.IPHONE_6;
-      const productPrice = PhonePrices.IPHONE_6_PRICE;
-      const productDescription = `It comes with 1GB of RAM. The phone packs 16GB of internal storage 
-cannot be expanded. As far as the cameras are concerned, the Apple 
-iPhone 6 packs a 8-megapixel primary camera on the rear and a 
-1.2-megapixel front shooter for selfies.`;
-
-      await homeActions.checkProductPrice(productPrice);
+    await test.step('Then verify iPhone 6 32GB price is correct', async () => {
+      await homeActions.checkProductPrice(PhonePrices.IPHONE_6_PRICE);
     });
   });
 });
