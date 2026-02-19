@@ -4,13 +4,19 @@ on:
     branches: [main]
     paths:
       - 'performance/**'
+      - '.github/workflows/performance_workflow.yml'
   pull_request:
     branches: [main]
     paths:
       - 'performance/**'
+      - '.github/workflows/performance_workflow.yml'
+  schedule:
+    # Run performance tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
 
 jobs:
-  k6_performance_test:
+  # Quick performance tests (run on every PR/push)
+  k6_quick_tests:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -20,6 +26,8 @@ jobs:
           - performance/endpoint_response_time_test.ts
           - performance/threshold_test.ts
           - performance/user_journey_test.ts
+          - performance/database_performance_test.ts
+          - performance/file_transfer_test.ts
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,3 +35,38 @@ jobs:
         uses: k6io/action@v0.1
         with:
           filename: ${{ matrix.test }}
+
+  # Spike test (moderate duration)
+  k6_spike_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run spike test
+        uses: k6io/action@v0.1
+        with:
+          filename: performance/spike_test.ts
+
+  # Long-running tests (only on schedule, not on every PR)
+  k6_stress_test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run stress test
+        uses: k6io/action@v0.1
+        with:
+          filename: performance/stress_test.ts
+
+  k6_soak_test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run soak test
+        uses: k6io/action@v0.1
+        with:
+          filename: performance/soak_test.ts
