@@ -16,17 +16,31 @@
     },
     {
       "id": "nokia_lumia_1520",
-      "name": "Nokia Lumia 1520",
-      "price": 920,
+      "name": "Nokia lumia 1520",
+      "price": 820,
       "category": "Phones",
       "description": "Windows phone from Nokia"
     },
     {
       "id": "samsung_galaxy_s6",
-      "name": "Samsung Galaxy S6",
-      "price": 800,
+      "name": "Samsung galaxy s6",
+      "price": 360,
       "category": "Phones",
       "description": "Samsung flagship phone"
+    },
+    {
+      "id": "samsung_galaxy_s7",
+      "name": "Samsung galaxy s7",
+      "price": 800,
+      "category": "Phones",
+      "description": "Samsung Galaxy S7"
+    },
+    {
+      "id": "htc_one_m9",
+      "name": "HTC One M9",
+      "price": 700,
+      "category": "Phones",
+      "description": "HTC One M9"
     }
   ],
   "monitors": [
@@ -43,13 +57,6 @@
       "price": 400,
       "category": "Monitors",
       "description": "Apple LED Cinema Display"
-    },
-    {
-      "id": "dell_ultrasharp_29",
-      "name": "Dell UltraSharp 29",
-      "price": 250,
-      "category": "Monitors",
-      "description": "29 inch ultrawide monitor"
     }
   ]
 }

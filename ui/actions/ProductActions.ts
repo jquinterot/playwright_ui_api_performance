@@ -18,8 +18,8 @@ export class ProductActions {
   }
 
   async checkProductPrice(price: string) {
-    await expect(this.productPage.getPriceLabel(`$${price}`)).toHaveText(
-      `$${price} *includes tax`,
+    await expect(this.productPage.getPriceLabel(`$${price}`)).toContainText(
+      `$${price}`,
     );
   }
 

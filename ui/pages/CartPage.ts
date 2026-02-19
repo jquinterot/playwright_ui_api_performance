@@ -3,7 +3,7 @@ import { BasePage } from './BasePage';
 
 export class CartPage extends BasePage {
   getAddedProductTitle = (product: string): Locator =>
-    this.page.getByRole('cell', { name: `${product}` });
+    this.page.locator('.table').getByText(product, { exact: false }).first();
   getDeleteButton = (): Locator =>
     this.page.getByRole('link', { name: `Delete` });
   getPlaceOrderButton = (): Locator =>

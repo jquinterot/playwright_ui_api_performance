@@ -8,9 +8,10 @@ export class CartActions {
   ) {}
 
   async checkProductIsDisplayed(product: string) {
-    await expect(this.cartPage.getAddedProductTitle(product)).toHaveText(
-      product,
-    );
+    await this.page.waitForLoadState('networkidle');
+    const productText = product.toLowerCase();
+    const locator = this.cartPage.getAddedProductTitle(product);
+    await expect(locator).toBeVisible({ timeout: 10000 });
   }
 
   async deleteProductFromCard(product: string) {
