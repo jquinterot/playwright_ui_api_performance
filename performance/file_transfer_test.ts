@@ -48,9 +48,9 @@ export default function () {
   });
 
   console.log(
-    `Download size: ${downloadResponse.body?.length || 0} bytes, Status: ${
-      downloadResponse.status
-    }`,
+    `Download size: ${
+      downloadResponse.body ? downloadResponse.body.length : 0
+    } bytes, Status: ${downloadResponse.status}`,
   );
 
   sleep(1);
