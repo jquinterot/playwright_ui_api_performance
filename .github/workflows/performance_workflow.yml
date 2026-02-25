@@ -31,10 +31,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Run k6 test
+      - id: run_k6
+        name: Run k6 test
         uses: k6io/action@v0.1
         with:
           filename: ${{ matrix.test }}
+
+      - name: Comment on PR if CI fails
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const failed = (steps.run_k6.outcome !== 'success');
+            if (failed) {
+              const prNumber = (github.context.payload.pull_request && github.context.payload.pull_request.number) ||
+                               (github.context.payload.issue && github.context.payload.issue.number);
+              const body = 'CI Failure: Performance threshold test failed. See workflow run logs for details.';
+              if (prNumber) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  body: body
+                });
+              } else {
+                console.log('No PR context; skipping comment.');
+              }
+            }
 
   # Spike test (moderate duration)
   k6_spike_test:
