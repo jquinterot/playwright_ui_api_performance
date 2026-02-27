@@ -8,22 +8,9 @@
  */
 import { APIRequestContext, expect } from '@playwright/test';
 import { apiConfig } from '../helpers/config/ApiConfig';
+import { Post, User } from '../helpers/types/JsonPlaceholder';
 
-export interface Post {
-  id?: number;
-  userId: number;
-  title: string;
-  body: string;
-}
-
-export interface User {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-}
+export type { Post, User };
 
 export class JsonPlaceholderController {
   private request: APIRequestContext;

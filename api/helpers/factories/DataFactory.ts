@@ -11,29 +11,9 @@
  * - Supports test data variations without duplication
  * - Reduces test maintenance when requirements change
  */
-export interface Post {
-  userId: number;
-  id?: number;
-  title: string;
-  body: string;
-}
+import { Post, User, Comment } from '../types/JsonPlaceholder';
 
-export interface User {
-  id?: number;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-  website: string;
-}
-
-export interface Comment {
-  postId: number;
-  id?: number;
-  name: string;
-  email: string;
-  body: string;
-}
+export { Post, User, Comment };
 
 export class DataFactory {
   private static counter = 0;
