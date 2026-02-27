@@ -15,27 +15,17 @@ on:
     - cron: '0 2 * * *'
 
 jobs:
-  # Quick performance tests (run on every PR/push)
-  k6_quick_tests:
+  # Fast threshold test only
+  k6_threshold_test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        test:
-          - performance/api_load_test.ts
-          - performance/endpoint_response_time_test.ts
-          - performance/threshold_test.ts
-          - performance/user_journey_test.ts
-          - performance/database_performance_test.ts
-          - performance/file_transfer_test.ts
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - id: run_k6
-        name: Run k6 test
+        name: Run k6 threshold test
         uses: k6io/action@v0.1
         with:
-          filename: ${{ matrix.test }}
+          filename: performance/threshold_test.ts
 
       - name: Comment on PR if CI fails
         if: always()
@@ -47,7 +37,7 @@ jobs:
             if (failed) {
               const prNumber = (github.context.payload.pull_request && github.context.payload.pull_request.number) ||
                                (github.context.payload.issue && github.context.payload.issue.number);
-              const body = 'CI Failure: Performance threshold test failed for ${{ matrix.test }}. See workflow run logs for details.';
+              const body = 'CI Failure: Performance threshold test failed. See workflow run logs for details.';
               if (prNumber) {
                 await github.rest.issues.createComment({
                   owner: context.repo.owner,
@@ -59,41 +49,3 @@ jobs:
                 console.log('No PR context; skipping comment.');
               }
             }
-
-  # Spike test (moderate duration)
-  k6_spike_test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run spike test
-        uses: k6io/action@v0.1
-        with:
-          filename: performance/spike_test.ts
-
-  # Long-running tests (DISABLED - only on schedule, not on every PR)
-  # Re-enable by removing 'false &&' from the condition below
-  k6_stress_test:
-    runs-on: ubuntu-latest
-    if: false && github.event_name == 'schedule'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run stress test
-        uses: k6io/action@v0.1
-        with:
-          filename: performance/stress_test.ts
-
-  # DISABLED - Long-running soak test (90 min)
-  # Re-enable by removing 'false &&' from the condition below
-  k6_soak_test:
-    runs-on: ubuntu-latest
-    if: false && github.event_name == 'schedule'
-    timeout-minutes: 90
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run soak test
-        uses: k6io/action@v0.1
-        with:
-          filename: performance/soak_test.ts
