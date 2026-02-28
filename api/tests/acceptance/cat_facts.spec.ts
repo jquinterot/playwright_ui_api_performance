@@ -1,15 +1,12 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../fixtures/apiFixtures';
 import { CatFact } from '../../helpers/types/CatFact';
 import { CatFacts } from '../../helpers/types/CatFacts';
-import { CatFactController } from '../../controllers/CatFactController';
-import { CAT_FACTS } from '../../helpers/objects/CatFacts.ts';
 
-test('Check GET /fact @acceptance', async ({ request }) => {
+test('Check GET /fact @acceptance', async ({ catfact }) => {
   let catFact: CatFact;
 
   await test.step('Given user GET cat facts', async () => {
-    const catFactController = new CatFactController(request);
-    catFact = await catFactController.getCatFact();
+    catFact = await catfact.getCatFact();
   });
 
   await test.step('Then cat fact response should contain correct properties', async () => {
@@ -19,12 +16,11 @@ test('Check GET /fact @acceptance', async ({ request }) => {
   });
 });
 
-test('Check GET /facts @acceptance', async ({ request }) => {
+test('Check GET /facts @acceptance', async ({ catfact }) => {
   let catFacts: CatFacts;
 
   await test.step('Given user GET cat facts', async () => {
-    const catFactController = new CatFactController(request);
-    catFacts = await catFactController.getCatFacts();
+    catFacts = await catfact.getCatFacts();
   });
 
   await test.step('Then cat facts response should have correct structure', async () => {

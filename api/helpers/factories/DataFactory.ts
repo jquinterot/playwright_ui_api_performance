@@ -1,16 +1,3 @@
-/**
- * Factory Pattern - Test Data Factory
- *
- * WHY: Generate realistic test data dynamically instead of hardcoding values.
- * Hardcoded data leads to brittle tests and data conflicts in parallel execution.
- *
- * VALUE:
- * - Unique data for each test (no conflicts in parallel runs)
- * - Realistic test data (lorem ipsum, fake emails, etc.)
- * - Easy to maintain - change defaults in one place
- * - Supports test data variations without duplication
- * - Reduces test maintenance when requirements change
- */
 import { Post, User, Comment } from '../types/JsonPlaceholder';
 
 export { Post, User, Comment };
@@ -18,17 +5,10 @@ export { Post, User, Comment };
 export class DataFactory {
   private static counter = 0;
 
-  /**
-   * Generate unique ID using timestamp + counter
-   */
   private static generateId(): number {
     return Date.now() + ++this.counter;
   }
 
-  /**
-   * Create a post with dynamic data
-   * @param overrides - Optional fields to override defaults
-   */
   static createPost(overrides?: Partial<Post>): Post {
     const id = this.generateId();
     return {
@@ -39,18 +19,12 @@ export class DataFactory {
     };
   }
 
-  /**
-   * Create multiple posts
-   */
   static createPosts(count: number, overrides?: Partial<Post>): Post[] {
     return Array.from({ length: count }, (_, i) =>
       this.createPost({ ...overrides, userId: overrides?.userId || i + 1 }),
     );
   }
 
-  /**
-   * Create a user with dynamic data
-   */
   static createUser(overrides?: Partial<User>): User {
     const id = this.generateId();
     return {
@@ -65,9 +39,6 @@ export class DataFactory {
     };
   }
 
-  /**
-   * Create a comment for a post
-   */
   static createComment(postId: number, overrides?: Partial<Comment>): Comment {
     const id = this.generateId();
     return {
@@ -79,9 +50,6 @@ export class DataFactory {
     };
   }
 
-  /**
-   * Create invalid post data for negative testing
-   */
   static createInvalidPost(
     type: 'empty' | 'long_title' | 'missing_body',
   ): Post {

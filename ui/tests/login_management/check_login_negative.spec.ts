@@ -1,4 +1,4 @@
-import { test } from '@helpers/fixtures/ActionFactoryFixture';
+import { test, expect } from '@helpers/fixtures/ActionFactoryFixture';
 import { MenuOptions } from '@helpers/enums/MenuOptions';
 
 test.describe('@regression @negative Check login with invalid credentials', () => {
@@ -14,6 +14,7 @@ test.describe('@regression @negative Check login with invalid credentials', () =
 
     await test.step('When user goes to login', async () => {
       await homeActions.selectMenuOption(MenuOptions.LOG_IN);
+      await loginActions.verifyLoginModalVisible();
     });
 
     await test.step('And enters invalid credentials', async () => {
@@ -23,6 +24,10 @@ test.describe('@regression @negative Check login with invalid credentials', () =
 
     await test.step('And clicks login button', async () => {
       await loginActions.clickLogin();
+    });
+
+    await test.step('Then user should see an error alert', async () => {
+      await expect(loginActions.getAlertMessage()).toBeVisible();
     });
   });
 });

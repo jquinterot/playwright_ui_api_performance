@@ -1,21 +1,14 @@
-import { test, expect, APIResponse } from '@playwright/test';
-import {
-  JsonPlaceholderController,
-  Post,
-} from '../../controllers/JsonPlaceholderController';
+import { APIResponse } from '@playwright/test';
+import { test, expect } from '../../fixtures/apiFixtures';
+import { Post } from '../../controllers/JsonPlaceholderController';
 import { ResponseValidator } from '../../helpers/validators/ResponseValidator';
 
 test.describe('@acceptance @api Posts API', () => {
-  let api: JsonPlaceholderController;
   let response: APIResponse;
 
-  test.beforeEach(async ({ request }) => {
-    api = new JsonPlaceholderController(request);
-  });
-
-  test('GET /posts - should return all posts', async () => {
+  test('GET /posts - should return all posts', async ({ jsonplaceholder }) => {
     await test.step('When user fetches all posts', async () => {
-      response = await api.getAllPosts();
+      response = await jsonplaceholder.getAllPosts();
     });
 
     await test.step('Then response should be successful', async () => {
@@ -28,9 +21,11 @@ test.describe('@acceptance @api Posts API', () => {
     });
   });
 
-  test('GET /posts/{id} - should return single post', async () => {
+  test('GET /posts/{id} - should return single post', async ({
+    jsonplaceholder,
+  }) => {
     await test.step('When user fetches post with id 1', async () => {
-      response = await api.getPostById(1);
+      response = await jsonplaceholder.getPostById(1);
     });
 
     await test.step('Then response should be successful', async () => {
@@ -44,9 +39,11 @@ test.describe('@acceptance @api Posts API', () => {
     });
   });
 
-  test('GET /posts?userId={id} - should return posts by user', async () => {
+  test('GET /posts?userId={id} - should return posts by user', async ({
+    jsonplaceholder,
+  }) => {
     await test.step('When user fetches posts for user 1', async () => {
-      response = await api.getPostsByUser(1);
+      response = await jsonplaceholder.getPostsByUser(1);
     });
 
     await test.step('Then response should be successful', async () => {
@@ -61,7 +58,7 @@ test.describe('@acceptance @api Posts API', () => {
     });
   });
 
-  test('POST /posts - should create new post', async () => {
+  test('POST /posts - should create new post', async ({ jsonplaceholder }) => {
     const newPost: Post = {
       userId: 1,
       title: 'Test Post Title',
@@ -69,7 +66,7 @@ test.describe('@acceptance @api Posts API', () => {
     };
 
     await test.step('When user creates a new post', async () => {
-      response = await api.createPost(newPost);
+      response = await jsonplaceholder.createPost(newPost);
     });
 
     await test.step('Then response should be created (201)', async () => {
@@ -85,7 +82,9 @@ test.describe('@acceptance @api Posts API', () => {
     });
   });
 
-  test('PUT /posts/{id} - should update existing post', async () => {
+  test('PUT /posts/{id} - should update existing post', async ({
+    jsonplaceholder,
+  }) => {
     const updatedPost: Post = {
       userId: 1,
       title: 'Updated Title',
@@ -93,7 +92,7 @@ test.describe('@acceptance @api Posts API', () => {
     };
 
     await test.step('When user updates post with id 1', async () => {
-      response = await api.updatePost(1, updatedPost);
+      response = await jsonplaceholder.updatePost(1, updatedPost);
     });
 
     await test.step('Then response should be successful', async () => {
@@ -107,9 +106,11 @@ test.describe('@acceptance @api Posts API', () => {
     });
   });
 
-  test('DELETE /posts/{id} - should delete post', async () => {
+  test('DELETE /posts/{id} - should delete post', async ({
+    jsonplaceholder,
+  }) => {
     await test.step('When user deletes post with id 1', async () => {
-      response = await api.deletePost(1);
+      response = await jsonplaceholder.deletePost(1);
     });
 
     await test.step('Then response should be successful', async () => {

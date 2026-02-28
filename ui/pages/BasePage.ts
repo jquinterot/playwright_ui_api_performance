@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 
 export class BasePage {
   protected readonly page: Page;
@@ -119,16 +119,4 @@ export class BasePage {
   async navigateTo(path: string): Promise<void> {
     await this.page.goto(path);
   }
-}
-
-function expect(locator: Locator) {
-  return {
-    toHaveText: async (text: string) => {
-      await locator.waitFor();
-      const actualText = await locator.textContent();
-      if (!actualText?.includes(text)) {
-        throw new Error(`Expected "${text}" but got "${actualText}"`);
-      }
-    },
-  };
 }

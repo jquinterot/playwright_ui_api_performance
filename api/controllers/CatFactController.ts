@@ -1,21 +1,18 @@
 import { APIRequestContext } from '@playwright/test';
+import { BaseApiController } from './BaseApiController';
+import { CatFact } from '../helpers/types/CatFact';
+import { CatFacts } from '../helpers/types/CatFacts';
 
-export class CatFactController {
-  private request: APIRequestContext;
-
+export class CatFactController extends BaseApiController {
   constructor(request: APIRequestContext) {
-    this.request = request;
+    super(request, 'https://catfact.ninja');
   }
 
-  getCatFact = async () => {
-    const request = await this.request.get(`/fact`);
-    const response = request.json();
-    return response;
-  };
+  async getCatFact(): Promise<CatFact> {
+    return await this.getJson<CatFact>('/fact');
+  }
 
-  getCatFacts = async () => {
-    const request = await this.request.get(`/facts`);
-    const response = request.json();
-    return response;
-  };
+  async getCatFacts(): Promise<CatFacts> {
+    return await this.getJson<CatFacts>('/facts');
+  }
 }

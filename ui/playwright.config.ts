@@ -5,12 +5,6 @@ import { testConfig } from '@helpers/config/TestConfig';
 
 dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
-/**
- * Using Singleton Pattern (TestConfig) for centralized configuration
- * - Provides single source of truth for all test settings
- * - Enables consistent configuration across test suite
- * - See: @helpers/config/TestConfig.ts
- */
 export default defineConfig({
   testDir: './tests',
   tsconfig: '../tsconfig.json',

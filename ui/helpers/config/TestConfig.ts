@@ -1,16 +1,3 @@
-/**
- * Singleton Pattern - Test Configuration
- *
- * WHY: Provides a single, centralized source for test configuration values
- * across the entire test suite. Eliminates duplicate config lookups and
- * ensures consistency.
- *
- * VALUE:
- * - Single source of truth for all test settings
- * - Easy to access from anywhere without passing config through multiple layers
- * - Can be extended to cache environment variables and computed values
- * - Useful for CI/CD where config might come from different sources
- */
 export class TestConfig {
   private static _instance: TestConfig;
   private _baseUrl: string;
@@ -23,9 +10,6 @@ export class TestConfig {
     this._viewport = { width: 1920, height: 1080 };
   }
 
-  /**
-   * Singleton instance getter - ensures only one instance exists
-   */
   static get instance(): TestConfig {
     if (!this._instance) {
       this._instance = new TestConfig();

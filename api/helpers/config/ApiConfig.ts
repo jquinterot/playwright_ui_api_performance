@@ -1,26 +1,46 @@
-/**
- * Singleton Pattern - API Test Configuration
- *
- * WHY: Provides centralized configuration for API tests, similar to UI TestConfig.
- * Allows easy switching between different API environments and provides
- * consistent settings across all API tests.
- *
- * VALUE:
- * - Single source of truth for API settings
- * - Easy to switch between different API base URLs
- * - Configurable timeouts and retry settings
- * - Consistent request/response logging settings
- */
+export interface ApiEndpoint {
+  name: string;
+  baseUrl: string;
+  timeout?: number;
+}
+
 export class ApiConfig {
   private static _instance: ApiConfig;
-  private _baseUrl: string;
+  private _endpoints: Map<string, ApiEndpoint>;
+  private _defaultEndpoint: string;
   private _timeout: number;
   private _logRequests: boolean;
   private _logResponses: boolean;
 
   private constructor() {
-    this._baseUrl =
-      process.env.API_BASE_URL || 'https://jsonplaceholder.typicode.com';
+    this._endpoints = new Map([
+      [
+        'jsonplaceholder',
+        {
+          name: 'jsonplaceholder',
+          baseUrl:
+            process.env.API_BASE_URL || 'https://jsonplaceholder.typicode.com',
+          timeout: parseInt(process.env.API_TIMEOUT || '30000'),
+        },
+      ],
+      [
+        'catfact',
+        {
+          name: 'catfact',
+          baseUrl: 'https://catfact.ninja',
+          timeout: parseInt(process.env.CATFACT_TIMEOUT || '30000'),
+        },
+      ],
+      [
+        'httpbin',
+        {
+          name: 'httpbin',
+          baseUrl: 'https://httpbin.org',
+          timeout: parseInt(process.env.HTTPBIN_TIMEOUT || '30000'),
+        },
+      ],
+    ]);
+    this._defaultEndpoint = 'jsonplaceholder';
     this._timeout = parseInt(process.env.API_TIMEOUT || '30000');
     this._logRequests = process.env.LOG_API_REQUESTS === 'true';
     this._logResponses = process.env.LOG_API_RESPONSES === 'true';
@@ -34,7 +54,17 @@ export class ApiConfig {
   }
 
   get baseUrl(): string {
-    return this._baseUrl;
+    return this.getEndpoint(this._defaultEndpoint).baseUrl;
+  }
+
+  getEndpoint(name: string): ApiEndpoint {
+    return (
+      this._endpoints.get(name) || {
+        name,
+        baseUrl: 'https://jsonplaceholder.typicode.com',
+        timeout: this._timeout,
+      }
+    );
   }
 
   get timeout(): number {

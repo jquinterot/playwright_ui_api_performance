@@ -1,5 +1,5 @@
 import { LoginPage } from '@pages/LoginPage';
-import { Page, expect } from '@playwright/test';
+import { Page, expect, Locator } from '@playwright/test';
 
 export class LoginActions {
   constructor(
@@ -27,5 +27,9 @@ export class LoginActions {
 
   async verifyLoginModalVisible() {
     await expect(this.loginPage.getLoginModalTitle()).toBeVisible();
+  }
+
+  getAlertMessage(): Locator {
+    return this.page.locator('#log-in-modal .alert');
   }
 }
