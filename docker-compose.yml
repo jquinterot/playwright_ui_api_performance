@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  api-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run api:acceptance
+    volumes:
+      - ./api/test-results:/app/api/test-results
+    environment:
+      - CI=true
+
+  ui-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run ui:regression
+    volumes:
+      - ./ui/test-results:/app/ui/test-results
+      - ./ui/playwright-report:/app/ui/playwright-report
+    environment:
+      - CI=true
+      - BASE_URL=https://www.demoblaze.com/
+
+  ui-acceptance:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run ui:acceptance
+    volumes:
+      - ./ui/test-results:/app/ui/test-results
+    environment:
+      - CI=true
+
+  ui-accessibility:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run ui:accessibility
+    volumes:
+      - ./ui/test-results:/app/ui/test-results
+    environment:
+      - CI=true

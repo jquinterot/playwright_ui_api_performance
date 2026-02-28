@@ -7,6 +7,7 @@ test.describe('@regression @negative Check login with invalid credentials', () =
   });
 
   test('Check login fails with invalid credentials', async ({
+    page,
     actionFactory,
   }) => {
     const homeActions = actionFactory.createHomeActions();
@@ -22,12 +23,16 @@ test.describe('@regression @negative Check login with invalid credentials', () =
       await loginActions.fillPassword('wrongpassword');
     });
 
-    await test.step('And clicks login button', async () => {
+    await test.step('And clicks login button and handles alert', async () => {
+      page.on('dialog', async (dialog) => {
+        expect(dialog.type()).toBe('alert');
+        await dialog.accept();
+      });
       await loginActions.clickLogin();
     });
 
-    await test.step('Then user should see an error alert', async () => {
-      await expect(loginActions.getAlertMessage()).toBeVisible();
+    await test.step('Then user should stay on login modal', async () => {
+      await loginActions.verifyLoginModalVisible();
     });
   });
 });

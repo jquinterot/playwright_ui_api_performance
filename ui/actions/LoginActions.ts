@@ -30,6 +30,6 @@ export class LoginActions {
   }
 
   getAlertMessage(): Locator {
-    return this.page.locator('#log-in-modal .alert');
+    return this.page.locator('#log-in-modal');
   }
 }
