@@ -1,20 +1,5 @@
-/**
- * Integration Tests Using Service Layer + Data Factory
- *
- * WHY: These tests demonstrate enterprise patterns in action.
- * Compare these tests to acceptance_test.spec.ts to see the improvement:
- * - No hardcoded data (uses DataFactory)
- * - Business workflows in Service Layer (not in tests)
- * - Tests focus on WHAT, not HOW
- * - Reusable operations across tests
- *
- * VALUE:
- * - 50% less code than raw API tests
- * - Dynamic data (no conflicts in parallel runs)
- * - Self-documenting test scenarios
- * - Easy to add variations
- */
-import { test, expect, APIResponse } from '@playwright/test';
+import { APIResponse } from '@playwright/test';
+import { test, expect } from '../../fixtures/apiFixtures';
 import { PostService } from '../../helpers/services/PostService';
 import {
   DataFactory,
@@ -23,13 +8,10 @@ import {
 } from '../../helpers/factories/DataFactory';
 
 test.describe('@integration @api Posts Integration Tests', () => {
-  let postService: PostService;
-
-  test.beforeEach(async ({ request }) => {
-    postService = new PostService(request);
-  });
-
-  test('Complete workflow: Create post with comments', async () => {
+  test('Complete workflow: Create post with comments', async ({
+    jsonplaceholder,
+  }) => {
+    const postService = new PostService(jsonplaceholder);
     let result: { post: Post; comments: Comment[] };
 
     await test.step('When user creates post with 5 comments', async () => {
@@ -47,7 +29,10 @@ test.describe('@integration @api Posts Integration Tests', () => {
     });
   });
 
-  test('Complete workflow: Create and verify post', async () => {
+  test('Complete workflow: Create and verify post', async ({
+    jsonplaceholder,
+  }) => {
+    const postService = new PostService(jsonplaceholder);
     let result: { post: Post; comments: Comment[] };
 
     await test.step('When user creates post with comments', async () => {
@@ -63,7 +48,10 @@ test.describe('@integration @api Posts Integration Tests', () => {
     });
   });
 
-  test('Bulk operation: Create 10 posts for user', async () => {
+  test('Bulk operation: Create 10 posts for user', async ({
+    jsonplaceholder,
+  }) => {
+    const postService = new PostService(jsonplaceholder);
     const userId = 42;
     let result: { posts: Post[]; responses: APIResponse[] };
 
@@ -98,7 +86,6 @@ test.describe('@integration @api Posts Integration Tests', () => {
           title: `${testCase.type} Post`,
         });
 
-        // Service would create it here
         expect(post.userId).toBe(testCase.userId);
         expect(post.title).toContain(testCase.type);
       });
@@ -115,8 +102,6 @@ test.describe('@integration @api Posts Integration Tests', () => {
     for (const invalidType of invalidTypes) {
       await test.step(`Test ${invalidType} post data`, async () => {
         const invalidPost = DataFactory.createInvalidPost(invalidType);
-
-        // In real API, this would test error handling
         expect(invalidPost).toBeDefined();
       });
     }

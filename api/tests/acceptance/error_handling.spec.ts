@@ -1,18 +1,15 @@
-import { test, expect, APIResponse } from '@playwright/test';
-import { JsonPlaceholderController } from '../../controllers/JsonPlaceholderController';
+import { APIResponse } from '@playwright/test';
+import { test, expect } from '../../fixtures/apiFixtures';
 import { ResponseValidator } from '../../helpers/validators/ResponseValidator';
 
 test.describe('@acceptance @api @negative Error Handling', () => {
-  let api: JsonPlaceholderController;
   let response: APIResponse;
 
-  test.beforeEach(async ({ request }) => {
-    api = new JsonPlaceholderController(request);
-  });
-
-  test('GET /posts/{invalid_id} - should handle invalid post ID', async () => {
+  test('GET /posts/{invalid_id} - should handle invalid post ID', async ({
+    jsonplaceholder,
+  }) => {
     await test.step('When user fetches post with invalid id', async () => {
-      response = await api.getPostById(999999);
+      response = await jsonplaceholder.getPostById(999999);
     });
 
     await test.step('Then response should be not found', async () => {
@@ -20,9 +17,11 @@ test.describe('@acceptance @api @negative Error Handling', () => {
     });
   });
 
-  test('GET /users/{invalid_id} - should handle invalid user ID', async () => {
+  test('GET /users/{invalid_id} - should handle invalid user ID', async ({
+    jsonplaceholder,
+  }) => {
     await test.step('When user fetches user with invalid id', async () => {
-      response = await api.getUserById(999999);
+      response = await jsonplaceholder.getUserById(999999);
     });
 
     await test.step('Then response should be not found', async () => {
@@ -30,9 +29,15 @@ test.describe('@acceptance @api @negative Error Handling', () => {
     });
   });
 
-  test('POST /posts - should handle invalid data', async () => {
+  test('POST /posts - should handle invalid data', async ({
+    jsonplaceholder,
+  }) => {
     await test.step('When user creates post with empty data', async () => {
-      response = await api.createPost({ userId: 1, title: '', body: '' });
+      response = await jsonplaceholder.createPost({
+        userId: 1,
+        title: '',
+        body: '',
+      });
     });
 
     await test.step('Then response should still be created (API accepts empty)', async () => {
