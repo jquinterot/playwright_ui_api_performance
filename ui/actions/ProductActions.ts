@@ -1,11 +1,14 @@
 import { ProductPage } from '@pages/ProductPage';
-import { Page, expect } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 
 export class ProductActions {
-  constructor(
-    private readonly page: Page,
-    private readonly productPage: ProductPage,
-  ) {}
+  // Simplified constructor - PageObject already has access to page internally
+  // Previous: passed both `page` and `productPage`, causing redundancy
+  constructor(private readonly productPage: ProductPage) {}
+
+  get page(): Page {
+    return this.productPage.getPage();
+  }
 
   async checkHomePageTitle(page: Page) {
     await expect(page).toHaveTitle(/STORE/);

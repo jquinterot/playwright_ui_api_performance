@@ -1,11 +1,14 @@
 import { CartPage } from '@pages/CartPage';
-import { Page, expect } from '@playwright/test';
+import { Page } from '@playwright/test';
 
 export class CartActions {
-  constructor(
-    private readonly page: Page,
-    private readonly cartPage: CartPage,
-  ) {}
+  // Simplified constructor - PageObject already has access to page internally
+  // Previous: passed both `page` and `cartPage`, causing redundancy
+  constructor(private readonly cartPage: CartPage) {}
+
+  get page(): Page {
+    return this.cartPage.getPage();
+  }
 
   async checkProductIsDisplayed(product: string) {
     await this.page.waitForLoadState('networkidle');
@@ -23,3 +26,5 @@ export class CartActions {
     await this.cartPage.getPlaceOrderButton().click();
   }
 }
+
+import { expect } from '@playwright/test';

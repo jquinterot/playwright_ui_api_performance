@@ -1,11 +1,14 @@
 import { PlaceOrderPage } from '@pages/PlaceOrderPage';
-import { Page, expect } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 
 export class PlaceOrderActions {
-  constructor(
-    private readonly page: Page,
-    private readonly placeOrderPage: PlaceOrderPage,
-  ) {}
+  // Simplified constructor - PageObject already has access to page internally
+  // Previous: passed both `page` and `placeOrderPage`, causing redundancy
+  constructor(private readonly placeOrderPage: PlaceOrderPage) {}
+
+  get page(): Page {
+    return this.placeOrderPage.getPage();
+  }
 
   async fillName(name: string) {
     await this.placeOrderPage.getNameInput().isVisible();

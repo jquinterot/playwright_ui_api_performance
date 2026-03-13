@@ -1,11 +1,14 @@
 import { LoginPage } from '@pages/LoginPage';
-import { Page, expect, Locator } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 
 export class LoginActions {
-  constructor(
-    private readonly page: Page,
-    private readonly loginPage: LoginPage,
-  ) {}
+  // Simplified constructor - PageObject already has access to page internally
+  // Previous: passed both `page` and `loginPage`, causing redundancy
+  constructor(private readonly loginPage: LoginPage) {}
+
+  get page(): Page {
+    return this.loginPage.getPage();
+  }
 
   async fillUsername(username: string) {
     await this.loginPage.getUsernameInput().fill(username);

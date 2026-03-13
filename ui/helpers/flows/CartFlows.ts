@@ -1,14 +1,21 @@
-import { ActionFactory } from '@actions/ActionsFactory';
+import { HomeActions } from '@actions/HomeActions';
+import { ProductActions } from '@actions/ProductActions';
+import { CartActions } from '@actions/CartActions';
+import { PlaceOrderActions } from '@actions/PlaceOrderActions';
 import { Phones } from '@helpers/enums/Phones/Phones';
 import { PhonePrices } from '@helpers/enums/Phones/PhonePrices';
 import { Categories } from '@helpers/enums/Categories';
 import { Monitors } from '@helpers/enums/Monitors/Monitors';
 import { MonitorPrices } from '@helpers/enums/Monitors/MonitorPrices';
 import { MenuOptions } from '@helpers/enums/MenuOptions';
-import { Product, CustomerData } from '@helpers/test-data/types';
+import { CustomerData } from '@helpers/test-data/types';
 import { Page } from '@playwright/test';
 
 export class CartFlows {
+  // Now receives specific actions instead of factory
+  // Previous: received ActionFactory and created actions internally (new instances each time)
+  // Benefit: reuses injected action instances, better test isolation
+
   static setupDialogHandler(page: Page, expectedMessage: string): void {
     page.on('dialog', async (dialog) => {
       if (expectedMessage && !dialog.message().includes(expectedMessage)) {
@@ -19,81 +26,81 @@ export class CartFlows {
   }
 
   static async addProductToCart(
-    actionFactory: ActionFactory,
+    homeActions: HomeActions,
+    productActions: ProductActions,
     product: Phones,
     price: PhonePrices,
   ) {
-    const homeActions = actionFactory.createHomeActions();
     await homeActions.selectCategory(Categories.PHONES);
     await homeActions.selectProduct(product);
 
-    const productActions = actionFactory.createProductActions();
     await productActions.checkAddedProduct(product);
     await productActions.checkProductPrice(price);
     await productActions.addToCart();
   }
 
   static async addMonitorToCart(
-    actionFactory: ActionFactory,
+    homeActions: HomeActions,
+    productActions: ProductActions,
     monitor: Monitors,
     price: MonitorPrices,
   ) {
-    const homeActions = actionFactory.createHomeActions();
     await homeActions.selectCategory(Categories.MONITORS);
     await homeActions.selectProduct(monitor);
 
-    const productActions = actionFactory.createProductActions();
     await productActions.checkAddedProduct(monitor);
     await productActions.checkProductPrice(price);
     await productActions.addToCart();
   }
 
   static async addProductByName(
-    actionFactory: ActionFactory,
+    homeActions: HomeActions,
+    productActions: ProductActions,
     productName: string,
     category: 'Phones' | 'Monitors' | 'Laptops',
   ) {
-    const homeActions = actionFactory.createHomeActions();
     await homeActions.selectCategory(category);
     await homeActions.selectProduct(productName);
 
-    const productActions = actionFactory.createProductActions();
     await productActions.addToCart();
   }
 
   static async addProductAndVerifyInCart(
-    actionFactory: ActionFactory,
+    homeActions: HomeActions,
+    productActions: ProductActions,
+    cartActions: CartActions,
     productName: string,
     category: 'Phones' | 'Monitors' | 'Laptops',
   ) {
-    await this.addProductByName(actionFactory, productName, category);
+    await this.addProductByName(
+      homeActions,
+      productActions,
+      productName,
+      category,
+    );
 
-    const homeActions = actionFactory.createHomeActions();
     await homeActions.selectMenuOption('Cart');
 
-    const cartActions = actionFactory.createCartActions();
     await cartActions.checkProductIsDisplayed(productName);
   }
 
   static async removeProductFromCart(
-    actionFactory: ActionFactory,
+    cartActions: CartActions,
     productName: string,
   ) {
-    const cartActions = actionFactory.createCartActions();
     await cartActions.deleteProductFromCard(productName);
   }
 
   static async completePurchase(
-    actionFactory: ActionFactory,
+    homeActions: HomeActions,
+    cartActions: CartActions,
+    placeOrderActions: PlaceOrderActions,
     customer: CustomerData,
   ) {
-    const homeActions = actionFactory.createHomeActions();
     await homeActions.selectMenuOption(MenuOptions.CART);
 
-    const cartActions = actionFactory.createCartActions();
     await cartActions.selectPlaceOrder();
 
-    const placeOrderActions = actionFactory.createPlaceOrderActions();
     await placeOrderActions.fillName(customer.name);
     await placeOrderActions.fillCountry(customer.country);
     await placeOrderActions.fillCity(customer.city);
@@ -105,12 +112,26 @@ export class CartFlows {
   }
 
   static async fullPurchaseFlow(
-    actionFactory: ActionFactory,
+    homeActions: HomeActions,
+    productActions: ProductActions,
+    cartActions: CartActions,
+    placeOrderActions: PlaceOrderActions,
     productName: string,
     category: 'Phones' | 'Monitors' | 'Laptops',
     customer: CustomerData,
   ) {
-    await this.addProductAndVerifyInCart(actionFactory, productName, category);
-    await this.completePurchase(actionFactory, customer);
+    await this.addProductAndVerifyInCart(
+      homeActions,
+      productActions,
+      cartActions,
+      productName,
+      category,
+    );
+    await this.completePurchase(
+      homeActions,
+      cartActions,
+      placeOrderActions,
+      customer,
+    );
   }
 }

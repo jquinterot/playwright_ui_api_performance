@@ -19,61 +19,91 @@ import { CommonPage } from '@pages/CommonPage';
 import { LoginPage } from '@pages/LoginPage';
 
 export class ActionFactory {
-  private homePage: HomePage;
-  private productPage: ProductPage;
-  private cartPage: CartPage;
-  private aboutUsPage: AboutUsPage;
-  private contactPage: ContactPage;
-  private signUpPage: SignUpPage;
-  private placeOrderPage: PlaceOrderPage;
-  private commonPage: CommonPage;
-  private loginPage: LoginPage;
+  // Lazy initialization - pages are only created when accessed
+  // Previous: all 8 pages were created in constructor, even if unused
+  private _homePage?: HomePage;
+  private _productPage?: ProductPage;
+  private _cartPage?: CartPage;
+  private _aboutUsPage?: AboutUsPage;
+  private _contactPage?: ContactPage;
+  private _signUpPage?: SignUpPage;
+  private _placeOrderPage?: PlaceOrderPage;
+  private _commonPage?: CommonPage;
+  private _loginPage?: LoginPage;
 
-  constructor(private page: Page) {
-    this.homePage = new HomePage(page);
-    this.productPage = new ProductPage(page);
-    this.cartPage = new CartPage(page);
-    this.aboutUsPage = new AboutUsPage(page);
-    this.contactPage = new ContactPage(page);
-    this.signUpPage = new SignUpPage(page);
-    this.placeOrderPage = new PlaceOrderPage(page);
-    this.commonPage = new CommonPage(page);
-    this.loginPage = new LoginPage(page);
+  constructor(private page: Page) {}
+
+  // Lazy-loaded page objects
+  private get homePage(): HomePage {
+    return (this._homePage ??= new HomePage(this.page));
+  }
+
+  private get productPage(): ProductPage {
+    return (this._productPage ??= new ProductPage(this.page));
+  }
+
+  private get cartPage(): CartPage {
+    return (this._cartPage ??= new CartPage(this.page));
+  }
+
+  private get aboutUsPage(): AboutUsPage {
+    return (this._aboutUsPage ??= new AboutUsPage(this.page));
+  }
+
+  private get contactPage(): ContactPage {
+    return (this._contactPage ??= new ContactPage(this.page));
+  }
+
+  private get signUpPage(): SignUpPage {
+    return (this._signUpPage ??= new SignUpPage(this.page));
+  }
+
+  private get placeOrderPage(): PlaceOrderPage {
+    return (this._placeOrderPage ??= new PlaceOrderPage(this.page));
+  }
+
+  private get commonPage(): CommonPage {
+    return (this._commonPage ??= new CommonPage(this.page));
+  }
+
+  private get loginPage(): LoginPage {
+    return (this._loginPage ??= new LoginPage(this.page));
   }
 
   createHomeActions(): HomeActions {
-    return new HomeActions(this.page, this.homePage);
+    // Now only passes PageObject, not Page + PageObject (reduced redundancy)
+    return new HomeActions(this.homePage);
   }
 
   createProductActions(): ProductActions {
-    return new ProductActions(this.page, this.productPage);
+    return new ProductActions(this.productPage);
   }
 
   createCartActions(): CartActions {
-    return new CartActions(this.page, this.cartPage);
+    return new CartActions(this.cartPage);
   }
 
   createAboutUsActions(): AboutUsActions {
-    return new AboutUsActions(this.page, this.aboutUsPage);
+    return new AboutUsActions(this.aboutUsPage);
   }
 
   createContactActions(): ContactActions {
-    return new ContactActions(this.page, this.contactPage);
+    return new ContactActions(this.contactPage);
   }
 
   createSignUpActions(): SignUpActions {
-    return new SignUpActions(this.page, this.signUpPage);
+    return new SignUpActions(this.signUpPage);
   }
 
   createPlaceOrderActions(): PlaceOrderActions {
-    return new PlaceOrderActions(this.page, this.placeOrderPage);
+    return new PlaceOrderActions(this.placeOrderPage);
   }
 
   createCommonActions(): CommonActions {
-    return new CommonActions(this.page, this.commonPage);
+    return new CommonActions(this.commonPage);
   }
 
   createLoginActions(): LoginActions {
-    return new LoginActions(this.page, this.loginPage);
+    return new LoginActions(this.loginPage);
   }
 }

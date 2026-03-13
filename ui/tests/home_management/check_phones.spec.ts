@@ -1,6 +1,5 @@
 import { test } from '@helpers/fixtures/ActionFactoryFixture';
 import { Categories } from '@helpers/enums/Categories';
-import { expect } from '@playwright/test';
 import { CartFlows } from '@helpers/flows/CartFlows';
 import { Phones } from '@helpers/enums/Phones/Phones';
 import { PhonePrices } from '@helpers/enums/Phones/PhonePrices';
@@ -11,6 +10,7 @@ test.describe('@regression @Order @Phones Check Phones category', () => {
   });
 
   test('Add iPhone 6 to cart and verify price', async ({ actionFactory }) => {
+    // Create action instances once and reuse them
     const homeActions = actionFactory.createHomeActions();
     const productActions = actionFactory.createProductActions();
 
@@ -19,8 +19,10 @@ test.describe('@regression @Order @Phones Check Phones category', () => {
     });
 
     await test.step('Given product is added to cart', async () => {
+      // Now passes specific actions instead of factory (better reusability)
       await CartFlows.addProductToCart(
-        actionFactory,
+        homeActions,
+        productActions,
         Phones.IPHONE_6,
         PhonePrices.IPHONE_6_PRICE,
       );

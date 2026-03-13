@@ -1,11 +1,14 @@
 import { SignUpPage } from '@pages/SignUpPage';
-import { Page, expect } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
 
 export class SignUpActions {
-  constructor(
-    private readonly page: Page,
-    private readonly signUpPage: SignUpPage,
-  ) {}
+  // Simplified constructor - PageObject already has access to page internally
+  // Previous: passed both `page` and `signUpPage`, causing redundancy
+  constructor(private readonly signUpPage: SignUpPage) {}
+
+  get page(): Page {
+    return this.signUpPage.getPage();
+  }
 
   async fillUsername(username: string) {
     await this.signUpPage.getUserNameInput().fill(username);
