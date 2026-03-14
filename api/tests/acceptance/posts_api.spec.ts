@@ -1,7 +1,9 @@
 import { APIResponse } from '@playwright/test';
 import { test, expect } from '../../fixtures/apiFixtures';
 import { Post } from '../../controllers/JsonPlaceholderController';
+import { DataFactory } from '../../helpers/factories/DataFactory';
 import { ResponseValidator } from '../../helpers/validators/ResponseValidator';
+import { PostValidator } from '../../helpers/validators/PostValidator';
 
 test.describe('@acceptance @api Posts API', () => {
   let response: APIResponse;
@@ -51,45 +53,30 @@ test.describe('@acceptance @api Posts API', () => {
     });
 
     await test.step('And all posts should belong to user 1', async () => {
-      const posts = await response.json();
-      posts.forEach((post: Post) => {
-        expect(post.userId).toBe(1);
-      });
+      const posts = (await response.json()) as Post[];
+      PostValidator.validatePostsBelongToUser(posts, 1);
     });
   });
 
   test('POST /posts - should create new post', async ({ jsonplaceholder }) => {
-    const newPost: Post = {
-      userId: 1,
-      title: 'Test Post Title',
-      body: 'Test post body content',
-    };
+    const newPost = DataFactory.createPost();
 
     await test.step('When user creates a new post', async () => {
       response = await jsonplaceholder.createPost(newPost);
     });
 
     await test.step('Then response should be created (201)', async () => {
-      await ResponseValidator.validateStatus(response, 201);
-    });
-
-    await test.step('And response should contain created post', async () => {
-      const createdPost = await response.json();
-      expect(createdPost.title).toBe(newPost.title);
-      expect(createdPost.body).toBe(newPost.body);
-      expect(createdPost.userId).toBe(newPost.userId);
-      expect(createdPost.id).toBeDefined();
+      await PostValidator.validatePostCreated(response, newPost);
     });
   });
 
   test('PUT /posts/{id} - should update existing post', async ({
     jsonplaceholder,
   }) => {
-    const updatedPost: Post = {
-      userId: 1,
+    const updatedPost = DataFactory.createPost({
       title: 'Updated Title',
       body: 'Updated body content',
-    };
+    });
 
     await test.step('When user updates post with id 1', async () => {
       response = await jsonplaceholder.updatePost(1, updatedPost);
@@ -100,9 +87,7 @@ test.describe('@acceptance @api Posts API', () => {
     });
 
     await test.step('And response should contain updated post', async () => {
-      const post = await response.json();
-      expect(post.title).toBe(updatedPost.title);
-      expect(post.body).toBe(updatedPost.body);
+      await PostValidator.validatePostUpdated(response, updatedPost);
     });
   });
 
