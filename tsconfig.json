@@ -15,7 +15,8 @@
       "@helpers/*": ["ui/helpers/*"],
       "@actions/*": ["ui/actions/*"],
       "@pages/*": ["ui/pages/*"],
-      "@tests/*": ["ui/tests/*"]
+      "@tests/*": ["ui/tests/*"],
+      "@flows/*": ["ui/flows/*"]
     }
   },
   "include": ["ui/**/*"],

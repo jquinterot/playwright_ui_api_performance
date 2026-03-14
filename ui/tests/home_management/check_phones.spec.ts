@@ -1,6 +1,6 @@
 import { test } from '@helpers/fixtures/ActionFactoryFixture';
 import { Categories } from '@helpers/enums/Categories';
-import { ProductFlows } from '@helpers/flows/ProductFlows';
+import { ProductFlows } from '@flows/ProductFlows';
 import { Phones } from '@helpers/enums/Phones/Phones';
 import { PhonePrices } from '@helpers/enums/Phones/PhonePrices';
 
