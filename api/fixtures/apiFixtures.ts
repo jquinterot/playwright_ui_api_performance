@@ -1,11 +1,13 @@
 import { test as base, Page } from '@playwright/test';
 import { JsonPlaceholderController } from '../controllers/JsonPlaceholderController';
 import { CatFactController } from '../controllers/CatFactController';
+import { LocalApiController } from '../controllers/LocalApiController';
 import { ApiMockService, mockResponses } from '../helpers/mocks/ApiMockService';
 
 type ApiFixtures = {
   jsonplaceholder: JsonPlaceholderController;
   catfact: CatFactController;
+  localapi: LocalApiController;
   mock: ApiMockService;
   mockPage: ApiMockService;
 };
@@ -18,6 +20,11 @@ export const test = base.extend<ApiFixtures>({
 
   catfact: async ({ request }, use) => {
     const controller = new CatFactController(request);
+    await use(controller);
+  },
+
+  localapi: async ({ request }, use) => {
+    const controller = new LocalApiController(request);
     await use(controller);
   },
 
