@@ -28,7 +28,10 @@
     "test:monitors": "cd ui && npx playwright test tests/order_management/check_monitors.spec.ts --project=chromium",
     "test:phones": "cd ui && npx playwright test tests/order_management/check_phones.spec.ts --project=chromium",
     "ui:monitors": "cd ui && npx playwright test --grep @Monitor --project=chromium",
-    "ui:debug": "cd ui && npx playwright test --grep @acceptance --project=chromium --debug"
+    "ui:debug": "cd ui && npx playwright test --grep @acceptance --project=chromium --debug",
+    "tool:sitemap": "npx ts-node tools/sitemap-generator.ts",
+    "tool:audit": "npx ts-node tools/accessibility-auditor.ts",
+    "tool:screenshot": "npx ts-node tools/screenshot-tool.ts"
   },
   "author": "",
   "license": "ISC",
@@ -38,7 +41,8 @@
     "@playwright/test": "^1.59.1",
     "@types/node": "^20.5.9",
     "husky": "^8.0.3",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "ts-node": "^10.9.2"
   },
   "lint-staged": {
     "**/*.ts": [
