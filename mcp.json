@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp", "--browser", "chromium"],
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+  },
+  "server": {
+    "name": "playwright-ui-api-performance",
+    "version": "1.0.0"
+  }
+}

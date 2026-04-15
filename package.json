@@ -34,7 +34,8 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@playwright/test": "^1.58.2",
+    "@playwright/mcp": "^0.0.70",
+    "@playwright/test": "^1.59.1",
     "@types/node": "^20.5.9",
     "husky": "^8.0.3",
     "prettier": "^3.0.3"
@@ -52,7 +53,6 @@
   },
   "dependencies": {
     "@axe-core/playwright": "^4.7.3",
-    "@playwright/mcp": "^0.0.37",
     "@types/k6": "^0.48.0",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
