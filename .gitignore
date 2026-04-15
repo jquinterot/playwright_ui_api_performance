@@ -2,6 +2,7 @@ node_modules/
 ui/test-results/
 ui/playwright-report/
 ui/playwright/.cache/
+ui/screenshots/
 .env
 api/playwright-report/
 /test-results

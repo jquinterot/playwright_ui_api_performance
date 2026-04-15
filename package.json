@@ -31,7 +31,9 @@
     "ui:debug": "cd ui && npx playwright test --grep @acceptance --project=chromium --debug",
     "tool:sitemap": "npx ts-node tools/sitemap-generator.ts",
     "tool:audit": "npx ts-node tools/accessibility-auditor.ts",
-    "tool:screenshot": "npx ts-node tools/screenshot-tool.ts"
+    "tool:screenshot": "npx ts-node tools/screenshot-tool.ts",
+    "mcp:start": "npx @playwright/mcp --browser chromium",
+    "ui:mcp": "cd ui && npx playwright test tests/mcp_exploration --project=chromium"
   },
   "author": "",
   "license": "ISC",
