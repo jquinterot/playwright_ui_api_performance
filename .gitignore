@@ -1,4 +1,5 @@
 node_modules/
+.DS_Store
 ui/test-results/
 ui/playwright-report/
 ui/playwright/.cache/

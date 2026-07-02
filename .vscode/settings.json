@@ -1,0 +1,6 @@
+{
+  "opencode.enabled": true,
+  "opencode.terminal.integrated.defaultLocation": "editor",
+  "opencode.terminal.integrated.splitDirection": "right",
+  "terminal.integrated.defaultProfile.osx": "zsh"
+}

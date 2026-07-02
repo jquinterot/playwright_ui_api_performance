@@ -2,14 +2,42 @@
   "mcpServers": {
     "playwright": {
       "command": "npx",
-      "args": ["@playwright/mcp", "--browser", "chromium"],
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ],
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "PLAYWRIGHT_MCP_BROWSER": "chromium",
+        "PLAYWRIGHT_MCP_HEADLESS": "true"
+      }
+    },
+    "playwright-headed": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--headless=false"
+      ],
+      "env": {
+        "NODE_ENV": "development",
+        "PLAYWRIGHT_MCP_BROWSER": "chromium"
+      }
+    },
+    "playwright-debug": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--headless=false",
+        "--caps=network,storage,devtools",
+        "--console-level=debug",
+        "--snapshot-mode=full"
+      ],
+      "env": {
+        "NODE_ENV": "development",
+        "PLAYWRIGHT_MCP_BROWSER": "chromium"
       }
     }
-  },
-  "server": {
-    "name": "playwright-ui-api-performance",
-    "version": "1.0.0"
   }
 }
