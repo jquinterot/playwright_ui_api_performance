@@ -10,19 +10,20 @@ on:
     paths:
       - 'api/**'
 
+# Dependencies come from the SINGLE root package.json: install at repo root,
+# then run playwright with working-directory=api where the api config lives.
+# Runner image must match package.json (playwright 1.64.x).
 jobs:
   api-acceptance-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.58.2
-    defaults:
-      run:
-        working-directory: api
+    container: mcr.microsoft.com/playwright:v1.64.0
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
       - name: Run API acceptance tests
+        working-directory: api
         run: npx playwright test --grep @acceptance --project=chromium
       - uses: actions/upload-artifact@v4
         if: always()
@@ -33,16 +34,14 @@ jobs:
 
   api-integration-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.58.2
-    defaults:
-      run:
-        working-directory: api
+    container: mcr.microsoft.com/playwright:v1.64.0
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
       - name: Run API integration tests
+        working-directory: api
         run: npx playwright test tests/integration --project=chromium
       - uses: actions/upload-artifact@v4
         if: always()
@@ -53,16 +52,14 @@ jobs:
 
   api-negative-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.58.2
-    defaults:
-      run:
-        working-directory: api
+    container: mcr.microsoft.com/playwright:v1.64.0
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
       - name: Run API negative tests
+        working-directory: api
         run: npx playwright test --grep @negative --project=chromium
       - uses: actions/upload-artifact@v4
         if: always()

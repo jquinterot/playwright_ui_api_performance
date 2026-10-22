@@ -11,7 +11,15 @@ export class HomePage extends BasePage {
   }
 
   getProduct(product: string): Locator {
-    return this.page.getByRole('link', { name: product });
+    // demoblaze's catalog can contain the SAME product twice (e.g. two
+    // identical "HTC One M9" cards, both href prod.html?idp_=7), which breaks
+    // strict mode on a bare getByRole(). Scope to the card title and pick the
+    // first match — deterministic, and identical hrefs make it safe.
+    return this.page
+      .locator('.card-title')
+      .filter({ hasText: product })
+      .locator('a')
+      .first();
   }
 
   getProductPrice(price: string): Locator {

@@ -5,5 +5,7 @@ ui/playwright-report/
 ui/playwright/.cache/
 ui/screenshots/
 .env
+# storageState auth sessions — generated, never commit
+ui/.auth/
 api/playwright-report/
 /test-results

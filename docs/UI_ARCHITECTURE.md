@@ -401,8 +401,39 @@ Test Categories:
 | **Screenshot on Failure** | `screenshot: 'only-on-failure'`  |
 | **Video Recording**       | `video: 'retain-on-failure'`     |
 | **Trace Viewer**          | `trace: 'on-first-retry'`        |
-| **Retry Logic**           | 2 retries in CI                  |
+| **Retry Logic**           | 2 retries in CI, `retryStrategy: 'isolated'` |
 | **Path Aliases**          | `@actions`, `@helpers`, `@pages` |
+| **Test Locks (1.63)**     | `lock: 'demoblaze-cart'` on shared-state tests |
+| **storageState Auth**     | `setup` project + `chromium-authenticated` |
+| **WebP Snapshots (1.62)** | Standalone + baseline screenshots |
+
+## Upgrade notes — Playwright 1.64 (October 2026)
+
+The framework was upgraded from 1.60 → 1.64 with these structural additions:
+
+- **Fixture chain** — `SafeTestFixture` (network guard rails, dialog/console
+  monitoring) is now the base of `ActionFactoryFixture`, so its safety
+  behavior is actually active for every spec (it previously had zero
+  importers).
+- **Auth setup project** (`ui/tests/auth/auth.setup.ts`) — official
+  storageState pattern: login once, assert demoblaze's `tokenp_` cookie, save
+  state to `ui/.auth/user.json` (gitignored). The `chromium-authenticated`
+  project reuses it via `dependencies: ['setup']`.
+- **Self-provisioning test data** — demoblaze's shared `testuser` no longer
+  accepts its well-known password (legacy specs "passed" only because they
+  assert nothing after login). `ShoppingFlow.signUpAndLogin()` registers a
+  fresh unique account per run and logs in strictly: ANY dialog during login
+  fails the test with the site's own error message.
+- **Instance flows** (`ui/flows/ShoppingFlow.ts`) — orchestration class wired
+  as a fixture (`shoppingFlow`), replacing the three duplicated static dialog
+  handlers in ProductFlows/CartFlows/AuthFlows.
+- **Learning specs** (`ui/tests/features_examples/`, see its README) — one
+  runnable, commented example per new API: test locks, `locator.within()`,
+  `locator.visible()`, `page.localStorage`/`sessionStorage`, step
+  `subtitle`/`params`, AbortSignal cancellation, WebP screenshots, typed
+  `request.get<T>()` (api/tests/demo), and data-driven cart rows.
+- **1.64 breaking-change opt-out** — `use: { screen: undefined }` keeps
+  pre-1.64 media-query behavior; remove the opt-out to adopt emulated screens.
 
 ## Future Enhancements
 

@@ -5,13 +5,13 @@ on:
   pull_request:
     branches: [main, master]
 
+# NOTE: dependencies come from the SINGLE root package.json, so installs run
+# at repo root while test scripts themselves `cd ui` internally. The runner
+# image version must match package.json (playwright 1.64.x).
 jobs:
   ui-acceptance-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.58.2 # Official image with pre-installed browsers
-    defaults:
-      run:
-        working-directory: ui
+    container: mcr.microsoft.com/playwright:v1.64.0 # Official image with pre-installed browsers
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -28,10 +28,7 @@ jobs:
 
   ui-accessibility-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.58.2
-    defaults:
-      run:
-        working-directory: ui
+    container: mcr.microsoft.com/playwright:v1.64.0
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -48,10 +45,7 @@ jobs:
 
   ui-regression-tests:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.58.2
-    defaults:
-      run:
-        working-directory: ui
+    container: mcr.microsoft.com/playwright:v1.64.0
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4

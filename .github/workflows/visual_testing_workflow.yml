@@ -6,21 +6,24 @@ on:
   pull_request:
     branches: [main, master]
 
+# NOTE: baselines in the repo are macOS (-darwin) — running this workflow on
+# ubuntu will regenerate (-linux) baselines unless they are committed too.
+# Dependencies come from the SINGLE root package.json (playwright 1.64.x).
 jobs:
   # Job to Upload Initial Baseline Images (Manual)
   upload_baseline_images:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.56.0  # Pre-installed browsers
-    defaults:
-      run:
-        working-directory: ui
+    container: mcr.microsoft.com/playwright:v1.64.0 # must match package.json
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: npm ci
       - name: Generate Baseline Images
-        run: npm run ui:visual --ignore-snapshots || true
+        # NEW in 1.64: `--update-snapshots=missing` PASSes tests that only
+        # create missing snapshots — so this run generates baselines and can
+        # also verify the ones that already exist, in a single execution.
+        run: npm run ui:visual -- --update-snapshots=missing || true
       - name: Upload Baseline Images
         uses: actions/upload-artifact@v4
         with:
@@ -30,10 +33,8 @@ jobs:
   # Job to Run Visual Validation Tests (CI Validation)
   visual_validation:
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.52.0  # Same image for consistency
-    defaults:
-      run:
-        working-directory: ui
+    container: mcr.microsoft.com/playwright:v1.64.0 # same image for consistency
+    timeout-minutes: 60
     needs: upload_baseline_images
     steps:
       - uses: actions/checkout@v4

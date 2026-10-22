@@ -17,8 +17,12 @@ A comprehensive testing framework covering UI, API, and Performance testing usin
 ```
 ├── ui/                    # UI Tests (Playwright)
 │   ├── actions/          # Business logic layer
+│   ├── flows/            # Orchestration layer (journeys composed of actions)
 │   ├── pages/            # Page Object Model
 │   ├── tests/            # Test specs
+│   │   ├── auth/         # Login-once setup project (storageState)
+│   │   ├── features_examples/  # Sample rules for new Playwright APIs
+│   │   └── performance/  # Browser performance (Playwright)
 │   └── helpers/          # Utilities, fixtures, config
 ├── api/                   # API Tests (Playwright)
 │   ├── controllers/      # API controllers
@@ -46,6 +50,9 @@ npm install
 npx playwright install
 ```
 
+> Playwright version is pinned to **1.64** (see `package.json`). The CI runner
+> image must match: `mcr.microsoft.com/playwright:v1.64.0`.
+
 ### Run Tests
 
 ```bash
@@ -60,6 +67,18 @@ npm run api:acceptance
 npm run performance:test
 npm run performance:stress
 ```
+
+### Learning specs — new Playwright APIs (1.61 → 1.64)
+
+```bash
+npm run ui:learning    # anonymous examples in ui/tests/features_examples/
+# authenticated examples (storageState setup project runs first):
+cd ui && npx @playwright/test test tests/features_examples/authenticated --project=chromium-authenticated
+```
+
+See [ui/tests/features_examples/README.md](ui/tests/features_examples/README.md)
+for the topic-to-file index (locks, `within()`, `visible()`, WebStorage,
+step metadata, AbortSignal, WebP, data-driven rows).
 
 ## 📊 Test Coverage
 
@@ -77,6 +96,9 @@ npm run performance:stress
 - **Service Layer** - Business workflow encapsulation
 - **Singleton** - Configuration management
 - **Data-Driven** - Parameterized tests
+- **Fixture Chain** - `SafeTestFixture` (network guard rails) → `ActionFactoryFixture` (actions + flows)
+- **Instance Flows** - Orchestration classes wired as fixtures (`ShoppingFlow`)
+- **storageState setup project** - login once in `auth.setup.ts`, reuse the session everywhere
 
 ## 🔄 CI/CD
 
@@ -98,11 +120,12 @@ Detailed architecture and implementation guides:
 
 ## 🎯 Key Features
 
-- ✅ **Parallel Execution** - Fast test runs with 4+ workers
+- ✅ **Parallel Execution** - Fast test runs with 4+ workers (+ isolated retries)
 - ✅ **Path Aliases** - Clean imports (`@actions`, `@helpers`)
 - ✅ **Dynamic Test Data** - Factory pattern for unique data
 - ✅ **Docker Ready** - Consistent CI/CD environments
-- ✅ **Comprehensive Reporting** - HTML, JUnit, artifacts
+- ✅ **Comprehensive Reporting** - HTML (merged files), JUnit, artifacts
+- ✅ **Test Locks** - shared-resource safety for parallel runs (Playwright 1.63+)
 
 ---
 
