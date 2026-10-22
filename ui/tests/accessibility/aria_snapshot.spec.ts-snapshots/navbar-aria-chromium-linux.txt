@@ -1,0 +1,33 @@
+- navigation:
+  - link "PRODUCT STORE":
+    - /url: index.html
+    - img
+    - text: PRODUCT STORE
+  - list:
+    - listitem:
+      - link "Home (current)":
+        - /url: index.html
+    - listitem:
+      - link "Contact":
+        - /url: "#"
+    - listitem:
+      - link "About us":
+        - /url: "#"
+    - listitem:
+      - link "Cart":
+        - /url: cart.html
+    - listitem:
+      - link "Log in":
+        - /url: "#"
+    - listitem
+    - listitem
+    - listitem:
+      - link "Sign up":
+        - /url: "#"
+  - list:
+    - listitem
+    - listitem
+    - listitem
+  - img "First slide"
+  - button "Previous"
+  - button "Next"

@@ -1,0 +1,7 @@
+- link:
+  - /url: prod.html?idp_=1
+- heading "Samsung galaxy s6" [level=4]:
+  - link "Samsung galaxy s6":
+    - /url: prod.html?idp_=1
+- heading "$360" [level=5]
+- paragraph: The Samsung Galaxy S6 is powered by 1.5GHz octa-core Samsung Exynos 7420 processor and it comes with 3GB of RAM. The phone packs 32GB of internal storage cannot be expanded.
